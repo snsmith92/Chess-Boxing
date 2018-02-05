@@ -1,3 +1,3 @@
 class Game < ApplicationRecord
-  scope :available, -> { where(opponent_id: nil) }
+  scope :available, -> { where(black_player: nil) }
 end
