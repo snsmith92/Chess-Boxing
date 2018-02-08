@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   def index
-    @games = Game.where(black_player: nil).or Game.where(white_player: nil)
+    @games = Game.available
   end
 
   def new
