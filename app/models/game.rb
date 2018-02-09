@@ -1,5 +1,4 @@
 class Game < ApplicationRecord
-  has_many :pieces
-  has_one :black_player
-  has_one :white_player
+  belongs_to :owner, class_name: "User", foreign_key: "owner_id"
+  belongs to :opponent, class_name: "User", foreign_key: "opponent_id"
 end
