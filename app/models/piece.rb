@@ -100,4 +100,12 @@ class Piece < ApplicationRecord
       end 
     end 
   end 
+
+  def move_to!(new_x, new_y)
+    # 1. Check to see if there is a piece in the location the piece is moving to
+    # 2. If there is a piece at this location and it's the opposite color, remove that piece from the board
+    # 3. If there is a piece at that locatio of the same color, the move should fail; do nothing
+    # 4. Call update attributes on the piece and change its x/y position
+  end
+
 end
