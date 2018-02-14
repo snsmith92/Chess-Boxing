@@ -1,5 +1,5 @@
 class Pawn < Piece
-  scope :pawns, -> {where(type: 'Pawn')}
+  scope :piece, -> {where(type: 'Pawn')}
 
 
 end

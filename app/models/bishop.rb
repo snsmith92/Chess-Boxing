@@ -1,4 +1,4 @@
 class Bishop < Piece
-  scope :bishops, -> {where(type: 'Bishop')}
+  scope :piece, -> {where(type: 'Bishop')}
 
 end

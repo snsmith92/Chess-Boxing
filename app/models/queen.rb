@@ -1,5 +1,5 @@
 class Queen < Piece
-  scope :queens, -> {where(type: 'Queen')}
+  scope :piece, -> {where(type: 'Queen')}
 
 
 end

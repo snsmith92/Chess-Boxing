@@ -1,4 +1,4 @@
 class Rook < Piece
-  scope :rooks, -> {where(type: 'Rook')}
+  scope :piece, -> {where(type: 'Rook')}
 
 end

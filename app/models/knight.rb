@@ -1,5 +1,5 @@
 class Knight < Piece
-  scope :knight, -> {where(type: 'Knight')}
+  scope :piece, -> {where(type: 'Knight')}
 
 
 end
