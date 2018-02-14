@@ -1,5 +1,9 @@
 class Piece < ApplicationRecord
   belongs_to :game
+  delegate :king, :queen, :bishop, :knight, :rook, :pawn, to: :pieces
+
+  #needs models that inherit from piece called pawn, rook, knight, bishop, queen, king
+
 
 
 # 1. Determine if any given square with (x,y) coordinates is currently occupied
@@ -96,5 +100,4 @@ class Piece < ApplicationRecord
       end 
     end 
   end 
-
 end
