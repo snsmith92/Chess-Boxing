@@ -79,3 +79,5 @@ source 'https://rails-assets.org' do
 end
 
 gem 'popper_js', '~> 1.11.1'
+
+gem 'ffi', '~> 1.9', '>= 1.9.21'
