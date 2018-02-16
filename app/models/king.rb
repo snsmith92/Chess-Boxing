@@ -20,14 +20,7 @@ class King < Piece
     elsif is_occupied?(piece_destination) && piece.user == current_user
       flash[:alert] = "You cannot capture your own piece!"
       return false
-
-    # If piece_destination is within a diagonal that is at all occupied by a bishop of the other user
-    elsif is_occupied? 
-      bishops.find_by(x: x, y: y).each do |piece|
-        if ((piece.x - destination_x).abs / (piece.y - destination_y).abs) == 1 && piece.user != current_user
-        flash[:alert] = "This move is not allowed!"
-        return false
-      end 
+    
     else
       return true
     end

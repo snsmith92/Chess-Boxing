@@ -17,7 +17,6 @@ class Piece < ApplicationRecord
     end
   end
 
-
   # 2. Model method is_obstructed for piece.rb
   def is_obstructed?(piece_destination)
     # 2a. location array [x, y] separated into individual variables
