@@ -101,10 +101,19 @@ class Piece < ApplicationRecord
     end 
   end 
 
-  def move_to!(new_x, new_y)
+  def move_to!(x_new, y_new)
+    x_current = piece.position_x
+    y_current = piece.position_y
     # 1. Check to see if there is a piece in the location the piece is moving to
+    if is_occupied(x_new, y_new) == true 
+      if piece(x_new, y_new).owner == piece(x_current, y_current).owner
+        flash[:notice] "This space is occupied by your own piece"
+      else
+
+      end
+    end
     # 2. If there is a piece at this location and it's the opposite color, remove that piece from the board
-    # 3. If there is a piece at that locatio of the same color, the move should fail; do nothing
+    # 3. If there is a piece at that location of the same color, the move should fail; do nothing
     # 4. Call update attributes on the piece and change its x/y position
   end
 
