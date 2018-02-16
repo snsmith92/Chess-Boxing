@@ -8,7 +8,7 @@ class King < Piece
     piece_destination[1] = y_destination
 
     # If piece_destination is not within the board -- not allowed
-    if x_destination < 1 || x_destination > 8 || y_destination < 1 || y_destination > 8
+    if outside_board?
       return false
 
     # If piece_destination coordinates is more than +1 or less than -1
