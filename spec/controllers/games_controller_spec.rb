@@ -32,9 +32,4 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to redirect_to game_path(game)
     end
   end
-  describe "games#show action" do
-    it "should successfully populate the game board with piece objects" do
-      game = FactoryBot.create(:game, :opponent)
-
-  end
 end
