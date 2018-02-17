@@ -4,16 +4,16 @@ class Piece < ApplicationRecord
 
   #needs models that inherit from piece called pawn, rook, knight, bishop, queen, king
 
-def outside_board?(piece_destination)
-  piece_destination[0] = x_destination
-  piece_destination[1] = y_destination
+  def outside_board?(piece_destination)
+    piece_destination[0] = x_destination
+    piece_destination[1] = y_destination
 
-  if x_destination < 1 || x_destination > 8 || y_destination < 1 || y_destination > 8
-    return true
-  else 
-    return false
+    if x_destination < 0 || x_destination > 7 || y_destination < 0 || y_destination > 7
+      return true
+    else 
+      return false
+    end 
   end 
-end 
 
 
 # 1. Determine if any given square with (x,y) coordinates is currently occupied
