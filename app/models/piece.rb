@@ -4,8 +4,8 @@ class Piece < ApplicationRecord
 
   #needs models that inherit from piece called pawn, rook, knight, bishop, queen, king
 
-
-
+#
+#
 # 1. Determine if any given square with (x,y) coordinates is currently occupied
   def is_occupied?(x,y)
     pieces.find_by(x: x, y: y).each do |piece|
@@ -34,7 +34,7 @@ class Piece < ApplicationRecord
         (y_destination - y_current)/(x_destination - x_current) == 1 ||(y_destination - y_current)/(x_destination - x_current) == -1
         is_obstructed_diagonally(piece_destination)
       else
-        flash[:notice] "This move is not possible."
+        # flash[:notice] "This move is not possible."
       end
     end
   end
