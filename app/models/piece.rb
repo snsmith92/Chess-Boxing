@@ -82,8 +82,8 @@ end
 
   # 5. See if there is a vertical obstruction
   def is_obstructed_diagonally(piece_destination)
-    x_current = piece[0]
-    y_current = piece[1]
+    x_current = piece_location[0]
+    y_current = piece_location[1]
     x_destination = piece_destination[0]
     y_destination = piece_destination[1]
 
@@ -109,4 +109,5 @@ end
       end 
     end 
   end 
+
 end
