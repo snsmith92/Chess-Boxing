@@ -5,4 +5,7 @@ Rails.application.routes.draw do
   root "games#new"
   resources :games, :pieces
 
+
+  root "games#index"
+  resources :games
 end
