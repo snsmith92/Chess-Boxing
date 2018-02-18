@@ -29,7 +29,7 @@ populate-game
     Piece.create("Rook", 7, 7, @game.id, "black", false)
 
     (0..7).each do |n|
-      Piece.create("Pawn", 0, 6, @game.id, "black", false)
+      Piece.create("Pawn", n, 6, @game.id, "black", false)
     end
   end
 
