@@ -43,7 +43,7 @@ end
         (y_destination - y_current)/(x_destination - x_current) == 1 ||(y_destination - y_current)/(x_destination - x_current) == -1
         is_obstructed_diagonally(piece_destination)
       else
-        flash[:notice] "This move is not possible."
+        # flash[:notice] "This move is not possible."
     end
   end
 
