@@ -1,4 +1,7 @@
 class PiecesController < ApplicationController
+  def index
+  end
+
   def sp(path)
     "Selected Piece" if current_page?(path)
   end
