@@ -5,11 +5,7 @@ class Piece < ApplicationRecord
   #needs models that inherit from piece called pawn, rook, knight, bishop, queen, king
 
   def outside_board?(position_x, position_y)
-    if position_x < 0 || position_x > 7 || position_y < 0 || position_y > 7
-      return true
-    else 
-      return false
-    end 
+    position_x < 0 || position_x > 7 || position_y < 0 || position_y > 7
   end 
 
 
