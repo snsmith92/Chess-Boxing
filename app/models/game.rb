@@ -4,7 +4,7 @@ class Game < ApplicationRecord
 
   scope :available, -> { where(Game.arel_table[:owner].not_eq(0)).where(opponent = nil) }
 
-  def populate_game!(params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured))
+  def populate_game!(piece_params)
     Piece.create("Rook", 0, 0, @game.id, "white", false)
     Piece.create("Knight", 1, 0, @game.id, "white", false)
     Piece.create("Bishop", 2, 0, @game.id, "white", false)
@@ -13,14 +13,10 @@ class Game < ApplicationRecord
     Piece.create("Bishop", 5, 0, @game.id, "white", false)
     Piece.create("Knight", 6, 0, @game.id, "white", false)
     Piece.create("Rook", 7, 0, @game.id, "white", false)
-    Piece.create("Pawn", 0, 1, @game.id, "white", false)
-    Piece.create("Pawn", 1, 1, @game.id, "white", false)
-    Piece.create("Pawn", 2, 1, @game.id, "white", false)
-    Piece.create("Pawn", 3, 1, @game.id, "white", false)
-    Piece.create("Pawn", 4, 1, @game.id, "white", false)
-    Piece.create("Pawn", 5, 1, @game.id, "white", false)
-    Piece.create("Pawn", 6, 1, @game.id, "white", false)
-    Piece.create("Pawn", 7, 1, @game.id, "white", false)
+
+    (0..7).each do |n|
+      Piece.create("Pawn", n, 1, @game.id, "white", false)
+    end
 
     Piece.create("Rook", 0, 7, @game.id, "black", false)
     Piece.create("Knight", 1, 7, @game.id, "black", false)
@@ -30,21 +26,16 @@ class Game < ApplicationRecord
     Piece.create("Bishop", 5, 7, @game.id, "black", false)
     Piece.create("Knight", 6, 7, @game.id, "black", false)
     Piece.create("Rook", 7, 7, @game.id, "black", false)
-    Piece.create("Pawn", 0, 6, @game.id, "black", false)
-    Piece.create("Pawn", 1, 6, @game.id, "black", false)
-    Piece.create("Pawn", 2, 6, @game.id, "black", false)
-    Piece.create("Pawn", 3, 6, @game.id, "black", false)
-    Piece.create("Pawn", 4, 6, @game.id, "black", false)
-    Piece.create("Pawn", 5, 6, @game.id, "black", false)
-    Piece.create("Pawn", 6, 6, @game.id, "black", false)
-    Piece.create("Pawn", 7, 6, @game.id, "black", false)
 
+    (0..7).each do |n|
+      Piece.create("Pawn", 0, 6, @game.id, "black", false)
+    end
   end
 
   private
 
 
-  # def piece_params
-  #   params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured)
-  # end
+  def piece_params
+    params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured)
+  end
 end
