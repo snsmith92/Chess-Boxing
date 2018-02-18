@@ -102,8 +102,8 @@ class Piece < ApplicationRecord
   end 
 
   def move_to!(x_new, y_new)
-    x_current = piece.position_x
-    y_current = piece.position_y
+    x_current = self.position_x
+    y_current = self.position_y
     x_destination = position_x
     y_destination = position_y
 
@@ -113,7 +113,7 @@ class Piece < ApplicationRecord
     #moving to an occupied space, move is valid
     #the valid_move? method covers the color of the piece
     elsif is_occupied?(x_destination, y_destination) && valid_move?(x_destination, y_destination)
-      piece[x_destination, y_destination].delete
+      game.pieces.where(position_x = x_destination, position_y = y_destination).delete
       piece.update_attributes(:position_x => x_destination, :position_y => y_destination)
     end
   end
