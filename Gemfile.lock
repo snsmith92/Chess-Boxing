@@ -211,6 +211,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   factory_bot_rails
+  ffi (~> 1.9, >= 1.9.18)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)

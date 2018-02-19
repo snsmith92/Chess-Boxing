@@ -62,6 +62,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
 end
 
+
 # Include rspec and factorybot for automated testing
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
@@ -70,4 +71,5 @@ end
 
 gem 'simple_form'
 
+gem 'ffi', '~> 1.9', '>= 1.9.18'
 
