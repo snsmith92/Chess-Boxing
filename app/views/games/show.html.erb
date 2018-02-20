@@ -3,21 +3,21 @@
 
 <%= link_to "New Game?", new_game_path %>
 
-
-<div class = "chessboard">
-  <% 7.downto(0) do |row| %>
-    <tr> 
-      <% 0.upto(7) do |column| %>
-        <td id = '<%= "#{column}_#{row}" %>' > <!-- gives each cell a unique ID to be matched to row and column --> 
-          <% @pieces.each do |piece|%>
-            <% if piece.position_y == row && piece.position_x == col %>
-              <%= link_to image_tag(image, piece_path(piece))%>
+<div class = "container">
+  <table class = "chessboard" cellpadding="0" cellspacing="0">
+    <% 7.downto(0) do |row| %>
+      <tr> 
+        <% 0.upto(7) do |column| %>
+          <td id = 'pos<%= "#{column}_#{row}"%>'>    
+            <% @pieces.each do |piece|%>
+              <% if piece.position_y == row && piece.position_x == col %>
+                <%= link_to image_tag(image, piece_path(piece))%>
+              <% end %>
             <% end %>
-          <% end %>
-        </td >
-      <% end %>
-    </tr>
-  <% end %>
+         </td >          
+        <% end %>
+      </tr>
+    <% end %>
+    <br class="clr">
+  </table>
 </div>
-
-

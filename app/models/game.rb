@@ -1,4 +1,6 @@
 class Game < ApplicationRecord
+  attr_accessor :owner, :opponent
+
   belongs_to :owner, class_name: 'User', foreign_key: 'owner'
   belongs_to :opponent, class_name: 'User', foreign_key: 'opponent', optional: true
 

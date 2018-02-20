@@ -72,4 +72,3 @@ end
 gem 'simple_form'
 
 gem 'ffi', '~> 1.9', '>= 1.9.18'
-
