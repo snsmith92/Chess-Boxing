@@ -4,19 +4,8 @@ class Piece < ApplicationRecord
 
   #needs models that inherit from piece called pawn, rook, knight, bishop, queen, king
 
-<<<<<<< HEAD
-def outside_board?(piece_destination)
-  piece_destination[0] = x_destination
-  piece_destination[1] = y_destination
-
-  if x_destination < 0 || x_destination > 7 || y_destination < 0 || y_destination > 7
-    return true
-  else 
-    return false
-=======
   def outside_board?(position_x, position_y)
     position_x < 0 || position_x > 7 || position_y < 0 || position_y > 7
->>>>>>> origin/master
   end 
 
 # 1. Determine if any given square with (x,y) coordinates is currently occupied
@@ -47,10 +36,6 @@ def outside_board?(piece_destination)
         is_obstructed_diagonally(position_x, position_y)
       else
         # flash[:notice] "This move is not possible."
-<<<<<<< HEAD
-=======
-      end
->>>>>>> origin/master
     end
   end
 
@@ -87,34 +72,34 @@ def outside_board?(piece_destination)
     end
   end
 
-  # 5. See if there is a vertical obstruction
-  def is_obstructed_diagonally(position_x, position_y)
-    x_current = piece.position_x
-    y_current = piece.position_y
-    x_destination = position_x
-    y_destination = position_y
+  # # 5. See if there is a vertical obstruction
+  # def is_obstructed_diagonally(position_x, position_y)
+  #   x_current = piece.position_x
+  #   y_current = piece.position_y
+  #   x_destination = position_x
+  #   y_destination = position_y
 
-    if x_current < x_destination && y_current < y_destination # up-right diagonal
-      while x_current < x_destination && y_current < y_destination do |x, y|
-        return true if is_occupied?(x += 1)(y += 1) == true
-        end
-      end
-    elsif x_current > x_destination && y_current < y_destination # up-left diagonal
-      while x_current > x_destination && y_current < y_destination do |x, y|
-        return true if is_occupied?(x -= 1)(y += 1) == true
-        end
-      end
-    elsif x_current < x_destination && y_current > y_destination # down-right diagonal
-      while x_current > x_destination && y_current < y_destination do |x, y|
-        return true if is_occupied?(x += 1)(y -= 1) == true
-        end
-      end
-    else
-      while x_current > x_destination && y_current < y_destination do |x, y|
-        return true if is_occupied?(x -= 1)(y -= 1) == true
-      end
-    end
-  end
+  #   if x_current < x_destination && y_current < y_destination # up-right diagonal
+  #     while x_current < x_destination && y_current < y_destination do |x, y|
+  #       return true if is_occupied?(x += 1)(y += 1) == true
+  #       end
+  #     end
+  #   elsif x_current > x_destination && y_current < y_destination # up-left diagonal
+  #     while x_current > x_destination && y_current < y_destination do |x, y|
+  #       return true if is_occupied?(x -= 1)(y += 1) == true
+  #       end
+  #     end
+  #   elsif x_current < x_destination && y_current > y_destination # down-right diagonal
+  #     while x_current > x_destination && y_current < y_destination do |x, y|
+  #       return true if is_occupied?(x += 1)(y -= 1) == true
+  #       end
+  #     end
+  #   else
+  #     while x_current > x_destination && y_current < y_destination do |x, y|
+  #       return true if is_occupied?(x -= 1)(y -= 1) == true
+  #     end
+  #   end
+  # end
 
   def move_to!(x_new, y_new)
     x_current = self.position_x
@@ -132,6 +117,4 @@ def outside_board?(piece_destination)
       piece.update_attributes(:position_x => x_destination, :position_y => y_destination)
     end
   end
-
-
 end
