@@ -1,11 +1,11 @@
 class King < Piece
   scope :piece, -> {where(type: 'King')}
 
-  def valid_move?(piece_destination)
-    piece[0] = x_current
-    piece[1] = y_current
-    piece_destination[0] = x_destination
-    piece_destination[1] = y_destination
+  def valid_move?(position_x, position_y)
+    piece.position_x = x_current
+    piece.position_y = y_current
+    position_x = x_destination
+    position_y = y_destination
 
     # If piece_destination is not within the board -- not allowed
     if outside_board?
