@@ -11,7 +11,7 @@
           <td id = 'pos<%= "#{column}_#{row}"%>'>    
             <% @pieces.each do |piece|%>
               <% if piece.position_y == row && piece.position_x == col %>
-                <%= link_to image_tag(image, piece_path(piece))%>
+                <%= link_to image_tag(piece.image, piece_path(piece))%>
               <% end %>
             <% end %>
          </td >          
