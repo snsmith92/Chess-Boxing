@@ -10,8 +10,10 @@
         <% 0.upto(7) do |column| %>
           <td id = 'pos<%= "#{column}_#{row}"%>'>    
             <% @pieces.each do |piece|%>
-              <% if piece.position_y == row && piece.position_x == column %>
-                <%= link_to image_tag(piece.image, piece_path(piece))%>
+              <% if piece.position_y.to_i == row && piece.position_x.to_i == column %>
+                <%= link_to piece_path(piece) do %>
+                  <%= image_tag(piece.image, class: "img-fluid")  %>
+                <% end %>
               <% end %>
             <% end %>
          </td >          
