@@ -6,7 +6,7 @@ class Piece < ApplicationRecord
 
   def outside_board?(position_x, position_y)
     position_x < 0 || position_x > 7 || position_y < 0 || position_y > 7
-  end 
+  end
 
 # 1. Determine if any given square with (x,y) coordinates is currently occupied
   def is_occupied?(position_x, position_y)
@@ -31,7 +31,7 @@ class Piece < ApplicationRecord
         is_obstructed_vertically(position_x, position_y)
       elsif y_current == y_destination
         is_obstructed_horizontally(position_x, position_y)
-      elsif 
+      elsif
         (y_destination - y_current)/(x_destination - x_current) == 1 ||(y_destination - y_current)/(x_destination - x_current) == -1
         is_obstructed_diagonally(position_x, position_y)
       else

@@ -1,7 +1,7 @@
 class Bishop < Piece
   scope :piece, -> {where(type: 'Bishop')}
 
-  def valid_move?
+  def valid_move?(position_x, position_y)
     piece.position_x = x_current
     piece.position_y = y_current
     position_x = x_destination
