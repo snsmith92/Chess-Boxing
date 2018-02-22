@@ -10,7 +10,9 @@ FactoryBot.define do
   end
 
   factory :game do
-    name "Test" 
+  end 
+
+  factory :piece do
   end 
 
 end 
