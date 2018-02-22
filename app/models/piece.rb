@@ -20,28 +20,24 @@ class Piece < ApplicationRecord
     end
   end
 
-  # 2. Model method is_obstructed for piece.rb
   def is_obstructed?(position_x, position_y)
-    # 2a. location array [x, y] separated into individual variables
     x_current = piece.position_x
     y_current = piece.position_y
     x_destination = position_x
     y_destination = position_y
 
     if x_current == x_destination
-        is_obstructed_vertically(position_x, position_y)
-      elsif y_current == y_destination
-        is_obstructed_horizontally(position_x, position_y)
-      elsif 
-        (y_destination - y_current)/(x_destination - x_current) == 1 ||(y_destination - y_current)/(x_destination - x_current) == -1
-        is_obstructed_diagonally(position_x, position_y)
-      else
+      is_obstructed_vertically(position_x, position_y)
+    elsif y_current == y_destination
+      is_obstructed_horizontally(position_x, position_y)
+    elsif (y_destination - y_current)/(x_destination - x_current) == 1 ||(y_destination - y_current)/(x_destination - x_current) == -1
+      is_obstructed_diagonally(position_x, position_y)
+    else
         # flash[:notice] "This move is not possible."
     end
   end
 
 
-  # 3. See if there is a vertical obstruction
   def is_obstructed_vertically(position_x, position_y)
     x_current = piece.position_x
     y_current = piece.position_y
@@ -57,7 +53,6 @@ class Piece < ApplicationRecord
     end
   end
 
-  # 4. See if there is a horizontal obstruction
   def is_obstructed_horizontally(position_x, position_y)
     x_current = piece.position_x
     y_current = piece.position_y
@@ -73,34 +68,30 @@ class Piece < ApplicationRecord
     end
   end
 
-  # # 5. See if there is a vertical obstruction
-  # def is_obstructed_diagonally(position_x, position_y)
-  #   x_current = piece.position_x
-  #   y_current = piece.position_y
-  #   x_destination = position_x
-  #   y_destination = position_y
+  def is_obstructed_diagonally(position_x, position_y)
+    x_current = piece.position_x
+    y_current = piece.position_y
+    x_destination = position_x
+    y_destination = position_y
 
-  #   if x_current < x_destination && y_current < y_destination # up-right diagonal
-  #     while x_current < x_destination && y_current < y_destination do |x, y|
-  #       return true if is_occupied?(x += 1)(y += 1) == true
-  #       end
-  #     end
-  #   elsif x_current > x_destination && y_current < y_destination # up-left diagonal
-  #     while x_current > x_destination && y_current < y_destination do |x, y|
-  #       return true if is_occupied?(x -= 1)(y += 1) == true
-  #       end
-  #     end
-  #   elsif x_current < x_destination && y_current > y_destination # down-right diagonal
-  #     while x_current > x_destination && y_current < y_destination do |x, y|
-  #       return true if is_occupied?(x += 1)(y -= 1) == true
-  #       end
-  #     end
-  #   else
-  #     while x_current > x_destination && y_current < y_destination do |x, y|
-  #       return true if is_occupied?(x -= 1)(y -= 1) == true
-  #     end
-  #   end
-  # end
+    if x_current < x_destination && y_current < y_destination # up-right diagonal
+      while x_current < x_destination && y_current < y_destination do
+        return true if is_occupied?((x += 1),(y += 1))
+      end
+    elsif x_current > x_destination && y_current < y_destination # up-left diagonal
+      while x_current > x_destination && y_current < y_destination do |x, y|
+        return true if is_occupied?((x -= 1),(y += 1))
+      end
+    elsif x_current < x_destination && y_current > y_destination # down-right diagonal
+      while x_current > x_destination && y_current < y_destination do |x, y|
+        return true if is_occupied?((x += 1),(y -= 1))
+      end
+    else
+      while x_current > x_destination && y_current < y_destination do |x, y|
+        return true if is_occupied?((x -= 1),(y -= 1))
+      end
+    end 
+  end
 
   def move_to!(x_new, y_new)
     x_current = self.position_x

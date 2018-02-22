@@ -10,7 +10,7 @@ FactoryBot.define do
   end
 
   factory :game do
-    ## code 
+    name "Test" 
   end 
 
 end 
