@@ -2,11 +2,74 @@ class Piece < ApplicationRecord
   belongs_to :game
   delegate :king, :queen, :bishop, :knight, :rook, :pawn, to: :pieces
 
-  #needs models that inherit from piece called pawn, rook, knight, bishop, queen, king
-
   def outside_board?(position_x, position_y)
     position_x < 0 || position_x > 7 || position_y < 0 || position_y > 7
   end 
+
+  def white? 
+    self.color == 'white'
+  end 
+
+  def black? 
+    self.color == 'black'
+  end 
+
+  def rook?
+    self.type == 'Rook'
+  end 
+
+  def bishop?
+    self.type == 'Bishop'
+  end 
+
+  def king?
+    self.type == 'King'
+  end 
+
+  def queen?
+    self.type == 'Queen'
+  end 
+
+  def knight?
+    self.type == 'Knight'
+  end 
+
+  def pawn?
+    self.type == 'Pawn'
+  end 
+
+
+  def show_image
+    if self.black? 
+      if self.rook?
+        'rook-black.png'
+      elsif self.bishop?
+        'bishop-black.png'
+      elsif self.queen?
+        'queen-black.png'
+      elsif self.king?
+        'king-black.png'
+      elsif self.knight?
+        'knight-black.png'
+      else
+        'pawn-black.png'
+      end 
+    else
+      if self.rook?
+        'rook-white.png'
+      elsif self.bishop? 
+        'bishop-white.png'
+      elsif self.queen?
+        'queen-white.png'
+      elsif self.king?
+        'king-white.png'
+      elsif self.knight? 
+        'knight-white.png'
+      else
+        'pawn-white.png'
+      end 
+    end 
+  end
 
 # 1. Determine if any given square with (x,y) coordinates is currently occupied
   def is_occupied?(position_x, position_y)
