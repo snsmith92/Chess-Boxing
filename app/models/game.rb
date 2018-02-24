@@ -4,38 +4,31 @@ class Game < ApplicationRecord
 
   scope :available, -> { where(Game.arel_table[:owner].not_eq(0)).where(opponent = nil) }
 
-  def populate_game!(piece_params)
-    Piece.create("Rook", 0, 0, @game.id, "white", false)
-    Piece.create("Knight", 1, 0, @game.id, "white", false)
-    Piece.create("Bishop", 2, 0, @game.id, "white", false)
-    Piece.create("King", 3, 0, @game.id, "white", false)
-    Piece.create("Queen", 4, 0, @game.id, "white", false)
-    Piece.create("Bishop", 5, 0, @game.id, "white", false)
-    Piece.create("Knight", 6, 0, @game.id, "white", false)
-    Piece.create("Rook", 7, 0, @game.id, "white", false)
+  def populate_game!
+    Rook.create(type: "Rook", game_id: self.id, position_x: 0, position_y: 0, color: "white", captured: false)
+    Knight.create(type: "Knight", game_id: self.id, position_x: 1, position_y: 0, color: "white", captured: false)
+    Bishop.create(type: "Bishop", game_id: self.id, position_x: 2, position_y: 0, color: "white", captured: false)
+    King.create(type: "King", game_id: self.id, position_x: 3, position_y: 0, color: "white", captured: false)
+    Queen.create(type: "Queen", game_id: self.id, position_x: 4, position_y: 0, color: "white", captured: false)
+    Bishop.create(type: "Bishop", game_id: self.id, position_x: 5, position_y: 0, color: "white", captured: false)
+    Knight.create(type: "Knight", game_id: self.id, position_x: 6, position_y: 0, color: "white", captured: false)
+    Rook.create(type: "Rook", game_id: self.id, position_x: 7, position_y: 0, color: "white", captured: false)
 
     (0..7).each do |n|
-      Piece.create("Pawn", n, 1, @game.id, "white", false)
+      Pawn.create(type: "Pawn", game_id: self.id, position_x: n, position_y: 1, color: "white", captured: false)
     end
 
-    Piece.create("Rook", 0, 7, @game.id, "black", false)
-    Piece.create("Knight", 1, 7, @game.id, "black", false)
-    Piece.create("Bishop", 2, 7, @game.id, "black", false)
-    Piece.create("King", 3, 7, @game.id, "black", false)
-    Piece.create("Queen", 4, 7, @game.id, "black", false)
-    Piece.create("Bishop", 5, 7, @game.id, "black", false)
-    Piece.create("Knight", 6, 7, @game.id, "black", false)
-    Piece.create("Rook", 7, 7, @game.id, "black", false)
+    Rook.create(type: "Rook", game_id: self.id, position_x: 0, position_y: 7, color: "black", captured: false)
+    Knight.create(type: "Knight", game_id: self.id, position_x: 1, position_y: 7, color: "black", captured: false)
+    Bishop.create(type: "Bishop", game_id: self.id, position_x: 2, position_y: 7, color: "black", captured: false)
+    King.create(type: "King", game_id: self.id, position_x: 3, position_y: 7, color: "black", captured: false)
+    Queen.create(type: "Queen", game_id: self.id, position_x: 4, position_y: 7, color: "black", captured: false)
+    Bishop.create(type: "Bishop", game_id: self.id, position_x: 5, position_y: 7, color: "black", captured: false)
+    Knight.create(type: "Knight", game_id: self.id, position_x: 6, position_y: 7, color: "black", captured: false)
+    Rook.create(type: "Rook", game_id: self.id, position_x: 7, position_y: 7, color: "black", captured: false)
 
     (0..7).each do |n|
-      Piece.create("Pawn", n, 6, @game.id, "black", false)
+      Pawn.create(type: "Pawn", game_id: self.id, position_x: n, position_y: 6, color: "black", captured: false)
     end
-  end
-
-  private
-
-
-  def piece_params
-    params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured)
   end
 end
