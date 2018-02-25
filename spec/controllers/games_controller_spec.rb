@@ -21,7 +21,7 @@ RSpec.describe GamesController, type: :controller do
       put :update, params: { id: game.id, game: { opponent: user.id } }
       expect(response).to redirect_to new_user_session_path
     end
-  end
+  #I removed an end that was here. It was causing an error in the test suite.
 
     it "should successfully update attributes for opponent and go to game show page" do
       user = FactoryBot.create(:user)
