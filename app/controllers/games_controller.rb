@@ -16,12 +16,14 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    @pieces = Piece.where(game_id: @game)
   end
 
   def update
     @game = Game.find(params[:id])
-    if @game.valid? && @game.owner_id != current_user
-      @game.update_attributes(:opponent => current_user)
+    if @game.valid? && @game.owner != current_user
+      @game.update_attribute(:opponent, current_user)
+      @game.save!
       redirect_to game_path(@game)
     else
       render :new, status: :unprocessable_entity

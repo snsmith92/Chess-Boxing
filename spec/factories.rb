@@ -10,7 +10,9 @@ FactoryBot.define do
   end
 
   factory :game do
-    ## code 
+  end 
+
+  factory :piece do
   end 
 
 end 
