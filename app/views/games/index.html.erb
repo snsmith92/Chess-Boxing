@@ -1,0 +1,12 @@
+<h1> Join A Game </h1>
+
+    <div>
+      <ul>
+        <% @games.each do |game| %>
+          <li>
+            <%= game.name %>
+            <%= link_to "Join", game_path(game), method: :update %>
+          </li>
+        <% end %>
+      </ul>
+    </div>

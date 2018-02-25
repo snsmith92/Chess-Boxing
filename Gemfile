@@ -52,16 +52,24 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# Include rspec and factorybot for automated testing
-group :development, :test do
-  gem 'rspec-rails', '~> 3.7'
-  gem "factory_bot_rails"
-end
 gem 'devise'
+
+# install bootstrap gem for front-end framework
+gem 'popper_js', '~> 1.11.1'
 gem 'bootstrap', '4.0.0.alpha6'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.3.3'
+end
+
+
+# Include rspec and factorybot for automated testing
 group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'factory_bot_rails'
 end
 
 gem 'simple_form'
+
+gem 'ffi', '~> 1.9', '>= 1.9.18'
+
