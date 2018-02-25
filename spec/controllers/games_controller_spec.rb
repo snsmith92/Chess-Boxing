@@ -17,18 +17,22 @@ RSpec.describe GamesController, type: :controller do
 
   describe "games#update action" do
     it "should not allow unauthenticated users to join a game" do
-      game = FactoryBot.create(:game, opponent: nil)
-      put :update, params: { id: game.id, game: { opponent: user.id }
+      owner = FactoryBot.create(:user)
+      game = FactoryBot.create(:game, owner: owner, opponent: nil)
+      opponent = FactoryBot.create(:user)
+
+      put :update, params: { id: game.id, game: { opponent: opponent }}
       expect(response).to redirect_to new_user_session_path
     end
-  end
 
     it "should successfully update attributes for opponent and go to game show page" do
-      user = FactoryBot.create(:user)
-      sign_in user
-      game = FactoryBot.create(:game, opponent: nil)
+      owner = FactoryBot.create(:user)
+      game = FactoryBot.create(:game, owner: owner, opponent: nil)
+      
+      opponent = FactoryBot.create(:user)
+      sign_in opponent
 
-      put :update, params: { id: game.id, game: { opponent: user.id }
+      put :update, params: { id: game.id, game: { opponent: opponent }}
       expect(response).to redirect_to game_path(game)
     end
   end

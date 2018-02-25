@@ -79,16 +79,15 @@ class Piece < ApplicationRecord
         return true if is_occupied?((x += 1),(y += 1))
       end
     elsif x_current > x_destination && y_current < y_destination # up-left diagonal
-      while x_current > x_destination && y_current < y_destination do |x, y|
+      while x_current > x_destination && y_current < y_destination do
         return true if is_occupied?((x -= 1),(y += 1))
       end
     elsif x_current < x_destination && y_current > y_destination # down-right diagonal
-      while x_current > x_destination && y_current < y_destination do |x, y|
+      while x_current > x_destination && y_current < y_destination do
         return true if is_occupied?((x += 1),(y -= 1))
       end
     else
-      while x_current > x_destination && y_current < y_destination do |x, y|
-        return true if is_occupied?((x -= 1),(y -= 1))
+      while x_current > x_destination && y_current < y_destination do
       end
     end 
   end
