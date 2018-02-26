@@ -2,13 +2,14 @@ class Piece < ApplicationRecord
   belongs_to :game
   delegate :king, :queen, :bishop, :knight, :rook, :pawn, to: :pieces
 
-  #needs models that inherit from piece called pawn, rook, knight, bishop, queen, king
-
   def outside_board?(position_x, position_y)
     position_x < 0 || position_x > 7 || position_y < 0 || position_y > 7
   end 
 
-# 1. Determine if any given square with (x,y) coordinates is currently occupied
+  def show_image
+    "#{type.downcase}-#{color.downcase}.png"
+  end
+
   def is_occupied?(position_x, position_y)
     pieces.find_by(position_x: position_x, position_y: position_y).each do |piece|
       if piece.position_x == position_x && piece.position_y == position_y
@@ -19,29 +20,24 @@ class Piece < ApplicationRecord
     end
   end
 
-  # 2. Model method is_obstructed for piece.rb
   def is_obstructed?(position_x, position_y)
-    # 2a. location array [x, y] separated into individual variables
     x_current = piece.position_x
     y_current = piece.position_y
     x_destination = position_x
     y_destination = position_y
 
     if x_current == x_destination
-        is_obstructed_vertically(position_x, position_y)
-      elsif y_current == y_destination
-        is_obstructed_horizontally(position_x, position_y)
-      elsif 
-        (y_destination - y_current)/(x_destination - x_current) == 1 ||(y_destination - y_current)/(x_destination - x_current) == -1
-        is_obstructed_diagonally(position_x, position_y)
-      else
+      is_obstructed_vertically(position_x, position_y)
+    elsif y_current == y_destination
+      is_obstructed_horizontally(position_x, position_y)
+    elsif (y_destination - y_current)/(x_destination - x_current) == 1 ||(y_destination - y_current)/(x_destination - x_current) == -1
+      is_obstructed_diagonally(position_x, position_y)
+    else
         # flash[:notice] "This move is not possible."
-      end
     end
   end
 
 
-  # 3. See if there is a vertical obstruction
   def is_obstructed_vertically(position_x, position_y)
     x_current = piece.position_x
     y_current = piece.position_y
@@ -57,7 +53,6 @@ class Piece < ApplicationRecord
     end
   end
 
-  # 4. See if there is a horizontal obstruction
   def is_obstructed_horizontally(position_x, position_y)
     x_current = piece.position_x
     y_current = piece.position_y
@@ -73,7 +68,6 @@ class Piece < ApplicationRecord
     end
   end
 
-  # 5. See if there is a vertical obstruction
   def is_obstructed_diagonally(position_x, position_y)
     x_current = piece.position_x
     y_current = piece.position_y
@@ -81,25 +75,22 @@ class Piece < ApplicationRecord
     y_destination = position_y
 
     if x_current < x_destination && y_current < y_destination # up-right diagonal
-      while x_current < x_destination && y_current < y_destination do |x, y|
-        return true if is_occupied?(x += 1)(y += 1) == true
-        end
+      while x_current < x_destination && y_current < y_destination do
+        return true if is_occupied?((x += 1),(y += 1))
       end
     elsif x_current > x_destination && y_current < y_destination # up-left diagonal
       while x_current > x_destination && y_current < y_destination do |x, y|
-        return true if is_occupied?(x -= 1)(y += 1) == true
-        end
+        return true if is_occupied?((x -= 1),(y += 1))
       end
     elsif x_current < x_destination && y_current > y_destination # down-right diagonal
       while x_current > x_destination && y_current < y_destination do |x, y|
-        return true if is_occupied?(x += 1)(y -= 1) == true
-        end
+        return true if is_occupied?((x += 1),(y -= 1))
       end
     else
       while x_current > x_destination && y_current < y_destination do |x, y|
-        return true if is_occupied?(x -= 1)(y -= 1) == true
+        return true if is_occupied?((x -= 1),(y -= 1))
       end
-    end
+    end 
   end
 
   def move_to!(x_new, y_new)
@@ -118,6 +109,4 @@ class Piece < ApplicationRecord
       piece.update_attributes(:position_x => x_destination, :position_y => y_destination)
     end
   end
-
-
 end
