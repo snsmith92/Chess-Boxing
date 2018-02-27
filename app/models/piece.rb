@@ -4,7 +4,7 @@ class Piece < ApplicationRecord
 
   def outside_board?(position_x, position_y)
     position_x < 0 || position_x > 7 || position_y < 0 || position_y > 7
-  end 
+  end
 
   def show_image
     "#{type.downcase}-#{color.downcase}.png"
@@ -75,7 +75,7 @@ class Piece < ApplicationRecord
     y_destination = position_y
 
     if x_current < x_destination && y_current < y_destination # up-right diagonal
-      while x_current < x_destination && y_current < y_destination do
+      while x_current < x_destination && y_current < y_destination do |x, y|
         return true if is_occupied?((x += 1),(y += 1))
       end
     elsif x_current > x_destination && y_current < y_destination # up-left diagonal
@@ -90,7 +90,7 @@ class Piece < ApplicationRecord
       while x_current > x_destination && y_current < y_destination do |x, y|
         return true if is_occupied?((x -= 1),(y -= 1))
       end
-    end 
+    end
   end
 
   def move_to!(x_new, y_new)
