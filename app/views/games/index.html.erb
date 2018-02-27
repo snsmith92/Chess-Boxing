@@ -5,7 +5,8 @@
         <% @games.each do |game| %>
           <li>
             <%= game.name %>
-            <%= link_to "Join", game_path(game), method: :update %>
+            <%= link_to "Join", game_path(game), method: :put %>
+            <%= button_to "Join", game_path(game), method: "patch" %>
           </li>
         <% end %>
       </ul>
