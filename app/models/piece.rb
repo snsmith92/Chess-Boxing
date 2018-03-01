@@ -11,18 +11,23 @@ class Piece < ApplicationRecord
   end
 
   def is_occupied?(position_x, position_y)
-    pieces.find_by(position_x: position_x, position_y: position_y).each do |piece|
-      if piece.position_x == position_x && piece.position_y == position_y
-        return true
-      else
-        return false
-      end
-    end
+    if Piece.find_by position_x: position_x, position_y: position_y != nil 
+      return true
+    else 
+      return false
+    end 
+    # Piece.find_by(position_x: position_x, position_y: position_y).each do |piece|
+    #   if piece.position_x == position_x && piece.position_y == position_y
+    #     return true
+    #   else
+    #     return false
+    #   end
+    # end
   end
 
   def is_obstructed?(position_x, position_y)
-    x_current = piece.position_x
-    y_current = piece.position_y
+    x_current = self.position_x.to_i
+    y_current = self.position_y.to_i
     x_destination = position_x
     y_destination = position_y
 
@@ -30,7 +35,7 @@ class Piece < ApplicationRecord
       is_obstructed_vertically(position_x, position_y)
     elsif y_current == y_destination
       is_obstructed_horizontally(position_x, position_y)
-    elsif (y_destination - y_current)/(x_destination - x_current) == 1 ||(y_destination - y_current)/(x_destination - x_current) == -1
+    elsif (y_destination - y_current)/(x_destination - x_current).abs == 1
       is_obstructed_diagonally(position_x, position_y)
     else
         # flash[:notice] "This move is not possible."
@@ -39,23 +44,23 @@ class Piece < ApplicationRecord
 
 
   def is_obstructed_vertically(position_x, position_y)
-    x_current = piece.position_x
-    y_current = piece.position_y
+    x_current = self.position_x.to_i
+    y_current = self.position_y.to_i
     y_destination = position_y
 
     if y_current < y_destination
       (y_current+1).upto(y_destination-1) do |y|
-        return true if is_occupied?(x_current, y) == true
+        return true if is_occupied?(x_current, y)
       end
     else (y_current-1).downto(y_destination+1) do |y|
-        return true if is_occupied?(x_current, y) == true
+        return true if is_occupied?(x_current, y)
       end
     end
   end
 
   def is_obstructed_horizontally(position_x, position_y)
-    x_current = piece.position_x
-    y_current = piece.position_y
+    x_current = self.position_x.to_i
+    y_current = self.position_y.to_i
     x_destination = position_x
 
     if x_current < x_destination
@@ -69,8 +74,8 @@ class Piece < ApplicationRecord
   end
 
   def is_obstructed_diagonally(position_x, position_y)
-    x_current = piece.position_x
-    y_current = piece.position_y
+    x_current = self.position_x.to_i
+    y_current = self.position_y.to_i
     x_destination = position_x
     y_destination = position_y
 
