@@ -38,10 +38,4 @@ class Game < ApplicationRecord
       Piece.create(type: 'Pawn', game_id: self.id, position_x: n, position_y: 6, color: 'black', captured: false)
     end
   end
-
-  private
-
-  def piece_params
-    params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured, :image)
-  end
 end

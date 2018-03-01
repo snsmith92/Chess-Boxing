@@ -10,15 +10,12 @@ class Piece < ApplicationRecord
     "#{type.downcase}-#{color.downcase}.png"
   end
 
-  def is_occupied?(position_x, position_y)
-    pieces.find_by(position_x: position_x, position_y: position_y).each do |piece|
-      if piece.position_x == position_x && piece.position_y == position_y
-        return true
-      else
-        return false
-      end
+  def is_occupied?(destination_x, destination_y)
+    if Piece.find_by(position_x: destination_x, position_y: destination_y) != nil
+      return true
     end
   end
+
 
   def is_obstructed?(position_x, position_y)
     x_current = piece.position_x
@@ -39,9 +36,9 @@ class Piece < ApplicationRecord
 
 
   def is_obstructed_vertically(position_x, position_y)
-    x_current = piece.position_x
-    y_current = piece.position_y
-    y_destination = position_y
+    x_current = self.position_x.to_i
+    y_current = self.position_y.to_i
+    y_destination = position_y.to_i
 
     if y_current < y_destination
       (y_current+1).upto(y_destination-1) do |y|
