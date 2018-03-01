@@ -75,20 +75,20 @@ class Piece < ApplicationRecord
     y_destination = position_y
 
     if x_current < x_destination && y_current < y_destination # up-right diagonal
-      while x_current < x_destination && y_current < y_destination do
-        return true if is_occupied?((x += 1),(y += 1))
+      while x_current < x_destination && y_current < y_destination do 
+        return true if is_occupied?((x_current += 1),(y_current += 1))
       end
     elsif x_current > x_destination && y_current < y_destination # up-left diagonal
       while x_current > x_destination && y_current < y_destination do 
-        return true if is_occupied?((x -= 1),(y += 1))
+        return true if is_occupied?((x_current -= 1),(y_current += 1))
       end
     elsif x_current < x_destination && y_current > y_destination # down-right diagonal
       while x_current > x_destination && y_current < y_destination do 
-        return true if is_occupied?((x += 1),(y -= 1))
+        return true if is_occupied?((x_current += 1),(y_current -= 1))
       end
     else
       while x_current > x_destination && y_current < y_destination do #down-left diagonal
-        return true if is_occupied?((x -= 1),(y -= 1))
+        return true if is_occupied?((x_current -= 1),(y_current -= 1))
       end
     end 
   end
