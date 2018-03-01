@@ -39,9 +39,40 @@ class Game < ApplicationRecord
     end
   end
 
+
+
+  def in_check?
+    self.king.each do
+      if king.color == 'black'
+        black_in_check(position_x, position_y)
+      else 
+        white_in_check(position_x, position_y)
+      end 
+    end 
+  end 
+
   private
 
   def piece_params
     params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured, :image)
   end
+
+  def black_in_check(position_x, position_y)
+    self.piece.each do 
+      if piece.valid_move?(position_x, position_y) && piece.color == 'white' && piece.type != 'King'
+        return true
+      else 
+        return false
+      end 
+  end 
+
+
+  def white_in_check(position_x, position_y)
+    self.piece.each do 
+      if piece.valid_move?(position_x, position_y) && piece.color == 'black' && piece.type != 'King'
+        return true
+      else 
+        return false
+      end 
+  end 
 end
