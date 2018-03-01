@@ -39,8 +39,6 @@ class Game < ApplicationRecord
     end
   end
 
-
-
   def in_check?
     self.king.each do
       if king.color == 'black'
