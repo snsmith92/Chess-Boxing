@@ -209,3 +209,28 @@
     </div>
   </div>
 </div>
+<br />
+<h1>Let's play!</h1>
+
+<%= link_to "New Game?", new_game_path %>
+
+<div class = "container">
+  <table class = "chessboard" cellpadding="0" cellspacing="0">
+    <% 7.downto(0) do |row| %>
+      <tr> 
+        <% 0.upto(7) do |column| %>
+          <td id = 'pos<%= "#{column}_#{row}"%>'>    
+            <% @pieces.each do |piece|%>
+              <% if piece.position_y.to_i == row && piece.position_x.to_i == column %>
+                <%= link_to piece_path(piece) do %>
+                  <%= image_tag(piece.show_image, class: "img-fluid")  %>
+                <% end %>
+              <% end %>
+            <% end %>
+         </td >          
+        <% end %>
+      </tr>
+    <% end %>
+    <br class="clr">
+  </table>
+</div>

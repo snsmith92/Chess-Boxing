@@ -15,4 +15,8 @@ class Queen < Piece
       return true
     end
   end
+class Queen < Piece
+  scope :piece, -> {where(type: 'Queen')}
+
+
 end
