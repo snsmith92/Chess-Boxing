@@ -9,5 +9,6 @@ class Pawn < Piece
 
     if outside_board?
       return false
-
+    end
+  end
 end
