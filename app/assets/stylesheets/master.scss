@@ -1,27 +1,29 @@
 @import "bootstrap";
 
-#chessboard, .black_square, .white_square {
+table.chessboard  {
   display:block;
   padding:0px;
   margin:0px;
 }
 
-#chessboard {
-  width:384px;
-  height:384px;
-  border:4px solid #FF0000;
+table.chessboard {
+  height:496px;
 }
 
-.black_square, .white_square {
-  width:48px;
-  height:48px;
+td {
+  width:62px;
+  height:62px;
   float:left;
 }
 
-.black_square {
-  background-color:#000000;
+tbody {
+  border: 2px solid red; 
 }
 
-.white_square {
-  background-color:#FFFFFF;
+#pos0_0, #pos0_2, #pos0_4, #pos0_6, #pos1_1,#pos1_3, #pos1_5, #pos1_7, #pos2_0, #pos2_2, #pos2_4, #pos2_6, #pos3_1, #pos3_3, #pos3_5, #pos3_7, #pos4_0, #pos4_2, #pos4_4, #pos4_6, #pos6_0, #pos6_2, #pos6_4, #pos6_6,#pos5_1, #pos5_3, #pos5_5, #pos5_7, #pos7_1, #pos7_3, #pos7_5, #pos7_7 {
+  background-color:black;
+}
+
+#pos0_1, #pos0_3, #pos0_5, #pos0_7, #pos1_0, #pos1_2, #pos1_4, #pos1_6, #pos2_1, #pos2_3, #pos2_5, #pos2_7, #pos3_0, #pos3_2, #pos3_4, #pos3_6, #pos4_1, #pos4_3, #pos4_5, #pos4_7, #pos5_0, #pos5_2, #pos5_4, #pos5_6,#pos6_1, #pos6_3, #pos6_5, #pos6_7, #pos7_0, #pos7_2, #pos7_4, #pos7_6 {
+  background-color: white;
 }

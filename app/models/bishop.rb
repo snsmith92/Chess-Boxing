@@ -7,7 +7,7 @@ class Bishop < Piece
     position_x = x_destination
     position_y = y_destination
 
-    if outside_board?
+    if outside_board?(position_x, position_y)
       return false
 
     elsif
