@@ -7,7 +7,7 @@ class PiecesController < ApplicationController
   end
 
   def show
-    @piece = Piece.find_by_xy(params[:xy])    
+    @piece = Piece.find(params[:id])    
   end
 
   def update

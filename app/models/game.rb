@@ -1,8 +1,14 @@
 class Game < ApplicationRecord
-  belongs_to :owner, class_name: 'User', foreign_key: 'owner'
-  belongs_to :opponent, class_name: 'User', foreign_key: 'opponent', optional: true
+  attr_accessor :owner, :opponent
+  after_create :populate_game!
 
-  scope :available, -> { where(Game.arel_table[:owner].not_eq(0)).where(opponent = nil) }
+  belongs_to :owner, class_name: 'User' #, foreign_key: 'owner'
+  belongs_to :opponent, class_name: 'User', foreign_key: 'opponent', optional: true
+  has_many :pieces
+
+  scope :available, -> { where(Game.arel_table[:owner_id].not_eq(0)).where(opponent_id = nil) }
+
+  # image: 'rook-white.png'
 
   def populate_game!
     Rook.create(type: "Rook", game_id: self.id, position_x: 0, position_y: 0, color: "white", captured: false)
