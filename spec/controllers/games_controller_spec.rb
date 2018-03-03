@@ -23,7 +23,6 @@ RSpec.describe GamesController, type: :controller do
       get :show, params: { id: game.id }
       expect(response).to redirect_to new_user_session_path
     end
-  end
 
     it "should successfully update attributes for opponent and go to game show page" do
       user1 = FactoryBot.create(:user)
