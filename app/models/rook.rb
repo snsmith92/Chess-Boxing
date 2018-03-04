@@ -7,10 +7,10 @@ class Rook < Piece
     position_x = x_destination
     position_y = y_destination
 
-    if current_x == x_destination && is_obstructed_vertically? == false # vertical move
-      return true
-    elsif current_y == y_destination && is_obstructed_horizontally? == false # horizontal move
-      return true 
+    if current_x == x_destination # vertical move
+      valid_move_vertical?(position_x, position_y)
+    elsif current_y == y_destination # horizontal move
+      valid_move_horizontal?(position_x, position_y)
     else 
       return false
     end 
