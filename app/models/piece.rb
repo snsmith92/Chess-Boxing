@@ -108,4 +108,12 @@ class Piece < ApplicationRecord
       piece.update_attributes(:position_x => x_destination, :position_y => y_destination)
     end
   end
+
+  def valid_move_vertical?(position_x, position_y)
+    !is_obstructed_vertically(position_x, position_y)
+  end 
+
+  def valid_move_horizontal?(position_x, position_y)
+    !is_obstructed_horizontally(position_x, position_y)
+  end 
 end

@@ -2,8 +2,8 @@ class King < Piece
   scope :piece, -> {where(type: 'King')}
 
   def valid_move?(position_x, position_y)
-    piece.position_x = x_current
-    piece.position_y = y_current
+    self.position_x = x_current
+    self.position_y = y_current
     position_x = x_destination
     position_y = y_destination
 
@@ -20,7 +20,6 @@ class King < Piece
     elsif is_occupied?(piece_destination) && piece.user == current_user
       flash[:alert] = "You cannot capture your own piece!"
       return false
-    
     else
       return true
     end
