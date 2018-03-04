@@ -10,19 +10,22 @@ class Pawn < Piece
     if outside_board?
       return false
 
-    elsif move_count == 0 && if (y_destination - y_current).abs > 2
+    elsif move_count == 0
+       if (y_destination - y_current).abs > 2
         flash[:alert] = "This move is not allowed!"
         return false
-      end
+        end
 
-    elsif move_count > 0 && if (y_destination - y_current).abs > 1
+    elsif move_count > 0
+      if (y_destination - y_current).abs > 1
         flash[:alert] = "This move is not allowed!"
         return false
       end
-    end
 
     elsif is_occupied?(x_current+1, y_current+1)
       flash[:alert] = "This move is not allowed!"
     end
+    else
+      return true
   end
 end
