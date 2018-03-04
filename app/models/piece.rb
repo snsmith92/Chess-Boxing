@@ -111,10 +111,10 @@ class Piece < ApplicationRecord
   end
 
   def valid_move_vertical?(position_x, position_y)
-    true unless is_obstructed_vertically(position_x, position_y)
+    !is_obstructed_vertically(position_x, position_y)
   end 
 
   def valid_move_horizontal?(position_x, position_y)
-    true unless is_obstructed_horizontally(position_x, position_y)
+    !is_obstructed_horizontally(position_x, position_y)
   end 
 end
