@@ -4,15 +4,28 @@ FactoryBot.define do
     sequence :email do |n|
       "dummyEmail#{n}@gmail.com"
     end
-    username "johndoetest"
+    sequence :username do |n|
+      "johndoe#{n}test"
+    end
+    # username "johndoetest"
     password "secretPassword"
     password_confirmation "secretPassword"
   end
+  #
+  # factory :user do
+  #   sequence :email do |n|
+  #     "fakeEmail#{n}@gmail.com"
+  #   end
+  #   username "janedotest"
+  #   password "secretPassword"
+  #   password_confirmation "secretPassword"
+  # end
 
   factory :game do
-  end 
+    name "ChessGame"
+  end
 
   factory :piece do
-  end 
+  end
 
-end 
+end
