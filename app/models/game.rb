@@ -8,7 +8,6 @@ class Game < ApplicationRecord
 
   scope :available, -> { where(Game.arel_table[:owner_id].not_eq(0)).where(opponent_id = nil) }
 
-  # image: 'rook-white.png'
 
   def populate_game!
     Rook.create(type: "Rook", game_id: self.id, position_x: 0, position_y: 0, color: "white", captured: false)
@@ -39,11 +38,13 @@ class Game < ApplicationRecord
   end
 
   def in_check?
-    self.king.each do
-      if king.color == 'black'
+    self.pieces.each do
+      if piece.type == "King" && piece.color == 'black'
         black_in_check(position_x, position_y)
-      else 
+      elsif piece.type == "King" && piece.color == 'white' 
         white_in_check(position_x, position_y)
+      else 
+        return false 
       end 
     end 
   end 
@@ -54,22 +55,32 @@ class Game < ApplicationRecord
     params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured, :image)
   end
 
-  def black_in_check(position_x, position_y)
-    self.piece.each do 
-      if piece.valid_move?(position_x, position_y) && piece.color == 'white' && piece.type != 'King'
+  def black_in_check
+    black_king = self.pieces.find_by(type: 'King', color: 'black')
+    position_x = black_king.position_x
+    position_y = black_king.position_y
+
+    self.pieces.each do |piece|
+      if piece.valid_move?(position_x, position_y) && piece.color == 'white'
         return true
       else 
         return false
       end 
+    end 
   end 
 
 
-  def white_in_check(position_x, position_y)
-    self.piece.each do 
-      if piece.valid_move?(position_x, position_y) && piece.color == 'black' && piece.type != 'King'
+  def white_in_check
+    white_king = self.pieces.find_by(type: 'King', color: 'white')
+    position_x = white_king.position_x
+    position_y = white_king.position_y
+
+    self.pieces.each do |piece|
+      if piece.valid_move?(position_x, position_y) && piece.color == 'black'
         return true
       else 
         return false
       end 
+    end 
   end 
 end

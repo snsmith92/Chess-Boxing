@@ -30,4 +30,5 @@ RSpec.describe Piece, type: :model do
       expect(piece.is_obstructed_diagonally(6, 6)).to eq(true)
     end
   end
+
 end
