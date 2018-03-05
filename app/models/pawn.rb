@@ -20,5 +20,7 @@ class Pawn < Piece
     else
       true
     end
+    else
+      return true
   end
 end

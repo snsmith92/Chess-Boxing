@@ -108,6 +108,7 @@ class Piece < ApplicationRecord
     #moving to an empty space, move is valid
     if (is_occupied?(x_destination, y_destination) == false) && (valid_move?(x_destination, y_destination) == true)
       update_attributes(:position_x => x_destination, :position_y => y_destination, :moves => move_count)
+
     #moving to an occupied space, move is valid
     #the valid_move? method covers the color of the piece
     elsif is_occupied?(x_destination, y_destination) && valid_move?(x_destination, y_destination)
@@ -115,4 +116,12 @@ class Piece < ApplicationRecord
       piece.update_attributes(:position_x => x_destination, :position_y => y_destination)
     end
   end
+
+  def valid_move_vertical?(position_x, position_y)
+    !is_obstructed_vertically(position_x, position_y)
+  end 
+
+  def valid_move_horizontal?(position_x, position_y)
+    !is_obstructed_horizontally(position_x, position_y)
+  end 
 end
