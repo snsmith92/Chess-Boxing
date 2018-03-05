@@ -7,7 +7,7 @@ class Piece < ApplicationRecord
   end
 
   def valid_move?(position_x, position_y)
-    if outside_board?(self.position_x.to_i, self.position_y.to_i)
+    if outside_board?(self.position_x, self.position_y)
       return false
     end
   end
@@ -17,9 +17,8 @@ class Piece < ApplicationRecord
   end
 
   def is_occupied?(destination_x, destination_y)
-    if Piece.find_by(position_x: destination_x, position_y: destination_y) != nil
-      return true
-    end
+    piece = Piece.find_by(position_x: destination_x, position_y: destination_y)
+    !piece.nil?
   end
 
 
@@ -42,9 +41,9 @@ class Piece < ApplicationRecord
 
 
   def is_obstructed_vertically(position_x, position_y)
-    x_current = self.position_x.to_i
-    y_current = self.position_y.to_i
-    y_destination = position_y.to_i
+    x_current = self.position_x
+    y_current = self.position_y
+    y_destination = position_y
 
     if y_current < y_destination
       (y_current+1).upto(y_destination-1) do |y|
@@ -57,8 +56,8 @@ class Piece < ApplicationRecord
   end
 
   def is_obstructed_horizontally(destination_x, destination_y)
-    x_current = self.position_x.to_i
-    y_current = self.position_y.to_i
+    x_current = self.position_x
+    y_current = self.position_y
     x_destination = destination_x
 
     if x_current < x_destination
@@ -73,8 +72,8 @@ class Piece < ApplicationRecord
   end
 
   def is_obstructed_diagonally(position_x, position_y)
-    x_current = self.position_x.to_i
-    y_current = self.position_y.to_i
+    x_current = self.position_x
+    y_current = self.position_y
     x_destination = position_x
     y_destination = position_y
 
