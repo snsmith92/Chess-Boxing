@@ -9,6 +9,8 @@ class Piece < ApplicationRecord
   def valid_move?(position_x, position_y)
     if outside_board?(self.position_x, self.position_y)
       return false
+    else
+      return true
     end
   end
 
@@ -97,21 +99,15 @@ class Piece < ApplicationRecord
     end
    end
 
-  def move_count
-    moves = 0
-    moves += 1
-  end
-
   def move_to!(position_x, position_y)
-    x_current = self.position_x.to_i
-    y_current = self.position_y.to_i
+    x_current = self.position_x
+    y_current = self.position_y
     x_destination = position_x
     y_destination = position_y
+    move_count = moves + 1
     #moving to an empty space, move is valid
-    if (is_occupied?(x_destination, y_destination) == false)
-      # && valid_move?(x_destination, y_destination)
-      piece.update_attributes(:position_x => x_destination, :position_y => y_destination)
-      piece.move_count
+    if (is_occupied?(x_destination, y_destination) == false) && (valid_move?(x_destination, y_destination) == true)
+      update_attributes(:position_x => x_destination, :position_y => y_destination, :moves => move_count)
     #moving to an occupied space, move is valid
     #the valid_move? method covers the color of the piece
     elsif is_occupied?(x_destination, y_destination) && valid_move?(x_destination, y_destination)
