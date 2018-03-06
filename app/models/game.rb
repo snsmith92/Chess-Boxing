@@ -37,4 +37,5 @@ class Game < ApplicationRecord
       Pawn.create(type: "Pawn", game_id: self.id, position_x: n, position_y: 6, color: "black", captured: false)
     end
   end
+
 end

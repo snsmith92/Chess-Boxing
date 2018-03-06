@@ -11,11 +11,9 @@ class Piece < ApplicationRecord
   end
 
   def is_occupied?(destination_x, destination_y)
-    if Piece.find_by(game_id: self.game_id, position_x: destination_x, position_y: destination_y) != nil
-      return true
-    end
+    game.pieces.where(position_x = destination_x, position_y = destination_y).any?
+    # if Piece.find_by(game_id: self.game_id, position_x: destination_x, position_y: destination_y) != nil
   end
-
 
   def is_obstructed?(position_x, position_y)
     x_current = self.position_x.to_i
@@ -42,11 +40,11 @@ class Piece < ApplicationRecord
 
     if y_current < y_destination
       (y_current+1).upto(y_destination-1) do |y|
-        return true if is_occupied?(x_current, y)
+        return true if self.is_occupied?(x_current, y)
       end
       false
     else (y_current-1).downto(y_destination+1) do |y|
-        return true if is_occupied?(x_current, y)
+        return true if self.is_occupied?(x_current, y)
       end
       false
     end

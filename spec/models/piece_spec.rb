@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
-  context "is_obstructed" do
+
+  context "is_obstructed?" do
     it "should detect vertical obstructions between a piece and desired destination" do 
       game = Game.create
       piece_1 = Piece.create(position_x: 0, position_y: 0, game_id: game.id)
