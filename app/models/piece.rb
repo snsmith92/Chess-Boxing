@@ -10,26 +10,10 @@ class Piece < ApplicationRecord
     "#{type.downcase}-#{color.downcase}.png"
   end
 
-<<<<<<< HEAD
-  def is_occupied?(position_x, position_y)
-    if Piece.find_by position_x: position_x, position_y: position_y != nil 
-      return true
-    else 
-      return false
-    end 
-    # Piece.find_by(position_x: position_x, position_y: position_y).each do |piece|
-    #   if piece.position_x == position_x && piece.position_y == position_y
-    #     return true
-    #   else
-    #     return false
-    #   end
-    # end
-=======
   def is_occupied?(destination_x, destination_y)
-    if Piece.find_by(position_x: destination_x, position_y: destination_y) != nil
+    if Piece.find_by(game_id: self.game_id, position_x: destination_x, position_y: destination_y) != nil
       return true
     end
->>>>>>> 5bb805875482d56916d3d35b355d8bd696035a83
   end
 
 
@@ -46,7 +30,7 @@ class Piece < ApplicationRecord
     elsif (y_destination - y_current)/(x_destination - x_current).abs == 1
       is_obstructed_diagonally(position_x, position_y)
     else
-        # flash[:notice] "This move is not possible."
+      false
     end
   end
 
@@ -60,9 +44,11 @@ class Piece < ApplicationRecord
       (y_current+1).upto(y_destination-1) do |y|
         return true if is_occupied?(x_current, y)
       end
+      false
     else (y_current-1).downto(y_destination+1) do |y|
         return true if is_occupied?(x_current, y)
       end
+      false
     end
   end
 
@@ -75,10 +61,12 @@ class Piece < ApplicationRecord
       (x_current + 1).upto(x_destination - 1).each do |x|
         return true if is_occupied?(x, y_current)
       end
+      false
     elsif x_current > x_destination
        (x_current - 1).downto(x_destination + 1).each do |x|
         return true if is_occupied?(x, y_current)
       end
+      false
     end
   end
 
@@ -88,46 +76,28 @@ class Piece < ApplicationRecord
     x_destination = position_x
     y_destination = position_y
 
-<<<<<<< HEAD
-    if x_current < x_destination && y_current < y_destination # up-right diagonal
-      while x_current < x_destination && y_current < y_destination do 
-        return true if is_occupied?((x_current += 1),(y_current += 1))
-      end
-    elsif x_current > x_destination && y_current < y_destination # up-left diagonal
-      while x_current > x_destination && y_current < y_destination do 
-        return true if is_occupied?((x_current -= 1),(y_current += 1))
-      end
-    elsif x_current < x_destination && y_current > y_destination # down-right diagonal
-      while x_current > x_destination && y_current < y_destination do 
-        return true if is_occupied?((x_current += 1),(y_current -= 1))
-      end
-    else
-      while x_current > x_destination && y_current < y_destination do #down-left diagonal
-        return true if is_occupied?((x_current -= 1),(y_current -= 1))
-      end
-    end 
-  end
-=======
-
     if x_current < x_destination && y_current < y_destination # up-right diagonal
       while x_current < x_destination && y_current < y_destination do
         return true if is_occupied?((x_current += 1),(y_current += 1))
       end
+      false
     elsif x_current > x_destination && y_current < y_destination # up-left diagonal
       while x_current > x_destination && y_current < y_destination do
         return true if is_occupied?((x_current -= 1),(y_current += 1))
       end
+      false
     elsif x_current < x_destination && y_current > y_destination # down-right diagonal
       while x_current > x_destination && y_current < y_destination do
         return true if is_occupied?((x_current += 1),(y_current -= 1))
       end
+      false
     else
       while x_current > x_destination && y_current < y_destination do
         return true if is_occupied?((x_current -= 1),(y_current -= 1))
       end
+      false
     end
    end
->>>>>>> 5bb805875482d56916d3d35b355d8bd696035a83
 
   def move_to!(x_new, y_new)
     x_current = self.position_x
