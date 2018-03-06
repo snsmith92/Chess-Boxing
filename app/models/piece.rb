@@ -33,12 +33,13 @@ class Piece < ApplicationRecord
     y_current = self.position_y.to_i
     y_destination = position_y.to_i
 
-    if y_current < y_destination
+    if y_current < y_destination #up
       (y_current+1).upto(y_destination-1) do |y|
         return true if game.is_occupied?(x_current, y)
       end
       false
-    else (y_current-1).downto(y_destination+1) do |y|
+    else #down
+      (y_current-1).downto(y_destination+1) do |y|
         return true if game.is_occupied?(x_current, y)
       end
       false
