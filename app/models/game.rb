@@ -83,4 +83,9 @@ class Game < ApplicationRecord
       end 
     end 
   end 
+
+  def is_occupied?(destination_x, destination_y)
+    Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
+  end
+
 end

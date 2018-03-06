@@ -13,4 +13,9 @@ RSpec.describe Game, type: :model do
       expect(game.in_check?).to eq(true)
     end 
   end 
+
+  context "is_occupied?" do
+    it "should detect if a cell is occupied" do
+    end 
+  end 
 end
