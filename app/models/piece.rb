@@ -25,8 +25,8 @@ class Piece < ApplicationRecord
 
 
   def is_obstructed?(position_x, position_y)
-    x_current = piece.position_x
-    y_current = piece.position_y
+    x_current = self.position_x
+    y_current = self.position_y
     x_destination = position_x
     y_destination = position_y
 
@@ -119,9 +119,9 @@ class Piece < ApplicationRecord
 
   def valid_move_vertical?(position_x, position_y)
     !is_obstructed_vertically(position_x, position_y)
-  end 
+  end
 
   def valid_move_horizontal?(position_x, position_y)
     !is_obstructed_horizontally(position_x, position_y)
-  end 
+  end
 end
