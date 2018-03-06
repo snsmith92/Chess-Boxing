@@ -10,11 +10,6 @@ class Piece < ApplicationRecord
     "#{type.downcase}-#{color.downcase}.png"
   end
 
-  def is_occupied?(destination_x, destination_y)
-    game.pieces.where(position_x = destination_x, position_y = destination_y).any?
-    # if Piece.find_by(game_id: self.game_id, position_x: destination_x, position_y: destination_y) != nil
-  end
-
   def is_obstructed?(position_x, position_y)
     x_current = self.position_x.to_i
     y_current = self.position_y.to_i
@@ -40,11 +35,11 @@ class Piece < ApplicationRecord
 
     if y_current < y_destination
       (y_current+1).upto(y_destination-1) do |y|
-        return true if self.is_occupied?(x_current, y)
+        return true if game.is_occupied?(x_current, y)
       end
       false
     else (y_current-1).downto(y_destination+1) do |y|
-        return true if self.is_occupied?(x_current, y)
+        return true if game.is_occupied?(x_current, y)
       end
       false
     end
@@ -57,12 +52,12 @@ class Piece < ApplicationRecord
 
     if x_current < x_destination
       (x_current + 1).upto(x_destination - 1).each do |x|
-        return true if is_occupied?(x, y_current)
+        return true if game.is_occupied?(x, y_current)
       end
       false
     elsif x_current > x_destination
        (x_current - 1).downto(x_destination + 1).each do |x|
-        return true if is_occupied?(x, y_current)
+        return true if game.is_occupied?(x, y_current)
       end
       false
     end
@@ -76,22 +71,22 @@ class Piece < ApplicationRecord
 
     if x_current < x_destination && y_current < y_destination # up-right diagonal
       while x_current < x_destination && y_current < y_destination do
-        return true if is_occupied?((x_current += 1),(y_current += 1))
+        return true if game.is_occupied?((x_current += 1),(y_current += 1))
       end
       false
     elsif x_current > x_destination && y_current < y_destination # up-left diagonal
       while x_current > x_destination && y_current < y_destination do
-        return true if is_occupied?((x_current -= 1),(y_current += 1))
+        return true if game.is_occupied?((x_current -= 1),(y_current += 1))
       end
       false
     elsif x_current < x_destination && y_current > y_destination # down-right diagonal
       while x_current > x_destination && y_current < y_destination do
-        return true if is_occupied?((x_current += 1),(y_current -= 1))
+        return true if game.is_occupied?((x_current += 1),(y_current -= 1))
       end
       false
     else
       while x_current > x_destination && y_current < y_destination do
-        return true if is_occupied?((x_current -= 1),(y_current -= 1))
+        return true if game.is_occupied?((x_current -= 1),(y_current -= 1))
       end
       false
     end
