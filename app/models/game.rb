@@ -39,7 +39,7 @@ class Game < ApplicationRecord
   end
 
   def is_occupied?(destination_x, destination_y)
-    pieces.where(position_x: destination_x, position_y: destination_y).present?
+    self.pieces.where(position_x: destination_x, position_y: destination_y).present?
   end
 
 end
