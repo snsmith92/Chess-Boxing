@@ -37,4 +37,9 @@ class Game < ApplicationRecord
       Pawn.create(type: "Pawn", game_id: self.id, position_x: n, position_y: 6, color: "black", captured: false)
     end
   end
+
+  def is_occupied?(destination_x, destination_y)
+    Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
+  end
+
 end
