@@ -85,7 +85,7 @@ class Piece < ApplicationRecord
         return true if game.is_occupied?((x_current += 1),(y_current -= 1))
       end
       false
-    else
+    else #down-left diagonal
       while x_current > x_destination && y_current < y_destination do
         return true if game.is_occupied?((x_current -= 1),(y_current -= 1))
       end
