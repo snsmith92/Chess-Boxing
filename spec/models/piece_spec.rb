@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Piece, type: :model do
 
   context "is_obstructed?" do
-    it "should detect vertical obstructions between a piece and desired destination" do 
+    it "should detect if there are vertical obstructions between a piece and desired destination" do 
       user = FactoryBot.create(:user)
       game = Game.create!(id: 1, owner: user)
       piece_1 = Piece.create!(position_x: 0, position_y: 0, game_id: game.id)
@@ -11,7 +11,7 @@ RSpec.describe Piece, type: :model do
       expect(piece_1.is_obstructed?(0,7)).to eq(true)
     end 
 
-    it "should detect vertical obstructions between a piece and desired destination" do 
+    it "should detect if there are no vertical obstructions between a piece and desired destination" do 
       user = FactoryBot.create(:user)
       game = Game.create!(id: 1, owner: user)
       piece_1 = Piece.create!(position_x: 0, position_y: 0, game_id: game.id)
