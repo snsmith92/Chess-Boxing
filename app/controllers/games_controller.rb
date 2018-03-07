@@ -23,14 +23,12 @@ class GamesController < ApplicationController
   end
 
   def update
-    puts "UPDATING"
     @game = Game.find(params[:id])
     # byebug
     # if @game.valid? && @game.owner != current_user.id
     if @game.owner != current_user.id
       @game.update_attribute(:opponent, current_user.id)
       @game.save
-      puts "SAVED"
       redirect_to game_path(@game)
     else
       render :new, status: :unprocessable_entity
