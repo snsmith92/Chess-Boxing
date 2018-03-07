@@ -20,7 +20,11 @@ class Piece < ApplicationRecord
 
   def is_occupied?(destination_x, destination_y)
     piece = Piece.find_by(position_x: destination_x, position_y: destination_y)
-    !piece.nil?
+    if piece.nil?
+      return false
+    else
+      true
+    end
   end
 
 
@@ -37,22 +41,23 @@ class Piece < ApplicationRecord
     elsif (y_destination - y_current)/(x_destination - x_current) == 1 ||(y_destination - y_current)/(x_destination - x_current) == -1
       is_obstructed_diagonally(position_x, position_y)
     else
-        # flash[:notice] "This move is not possible."
+      false
     end
   end
 
 
   def is_obstructed_vertically(position_x, position_y)
+
     x_current = self.position_x
     y_current = self.position_y
     y_destination = position_y
 
     if y_current < y_destination
       (y_current+1).upto(y_destination-1) do |y|
-        return true if is_occupied?(x_current, y) == true
+        return is_occupied?(x_current, y)
       end
-    else (y_current-1).downto(y_destination+1) do |y|
-        return true if is_occupied?(x_current, y) == true
+      else (y_current-1).downto(y_destination+1) do |y|
+        return is_occupied?(x_current, y)
       end
     end
   end
@@ -68,7 +73,7 @@ class Piece < ApplicationRecord
       end
     elsif x_current > x_destination
        (x_current - 1).downto(x_destination + 1).each do |x|
-        return true if is_occupied?(x, y_current)
+        return is_occupied?(x, y_current)
       end
     end
   end

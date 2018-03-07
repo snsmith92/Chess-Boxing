@@ -7,7 +7,7 @@ class Pawn < Piece
     x_destination = position_x
     y_destination = position_y
 
-    return false if outside_board?(x_destination, y_destination)
+    return false if outside_board?(position_x, position_y) == true || is_obstructed?(position_x, position_y) == true
 
     if moves == 0
       return false if (y_destination - y_current).abs > 2
