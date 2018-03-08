@@ -128,4 +128,12 @@ class Piece < ApplicationRecord
   def valid_move_horizontal?(position_x, position_y)
     !is_obstructed_horizontally(position_x, position_y)
   end 
+
+  def is_in_self_check?
+    if color == "white"
+      game.white_in_check
+    elsif color == "black"
+      game.black_in_check
+    end
+  end
 end

@@ -30,4 +30,15 @@ RSpec.describe Piece, type: :model do
       expect(piece.is_obstructed_diagonally(6, 6)).to eq(true)
     end
   end
+
+  describe "is_in_self_check" do
+    it "should check to see if moving a piece puts a player in self-check" do
+      game.create
+      king = King.create(color: "white", game_id: 1, position_x: 0, position_y: 2)
+      queen = Queen.create(color: "white" game_id: 1, position_x: 0 , position_y: 3)
+      rook = Rook.create(color: "black", game_id: 1, position_x: 0 , position_y: 5)
+      queen.is_in_self_check?
+      expect(queen.is_in_self_check?).to eq(true)
+    end
+  end
 end
