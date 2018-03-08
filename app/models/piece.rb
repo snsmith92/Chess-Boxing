@@ -9,8 +9,9 @@ class Piece < ApplicationRecord
   def valid_move?(position_x, position_y)
     if outside_board?(self.position_x, self.position_y)
       return false
-    else
-      return true
+    elsif is_in_self_check?
+       return false
+    else return true
     end
   end
 
