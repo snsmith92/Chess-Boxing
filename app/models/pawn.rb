@@ -2,28 +2,23 @@ class Pawn < Piece
   scope :piece, -> {where(type: 'Pawn')}
 
   def valid_move?(position_x, position_y)
-    piece.position_x.to_i = x_current
-    piece.position_y.to_i = y_current
-    position_x = x_destination
-    position_y = y_destination
+    x_current = self.position_x
+    y_current = self.position_y
+    x_destination = position_x
+    y_destination = position_y
 
-    if outside_board?
-      return false
+    return false if outside_board?(position_x, position_y) == true || is_obstructed?(position_x, position_y) == true
 
-    elsif move_count == 0
-       if (y_destination - y_current).abs > 2
-        flash[:alert] = "This move is not allowed!"
-        return false
-        end
+    if moves == 0
+      return false if (y_destination - y_current).abs > 2
+      true
 
-    elsif move_count > 0
-      if (y_destination - y_current).abs > 1
-        flash[:alert] = "This move is not allowed!"
-        return false
-      end
+    elsif moves > 0
+      return false if (y_destination - y_current).abs != 1
+      true
 
-    elsif is_occupied?(x_current+1, y_current+1)
-      flash[:alert] = "This move is not allowed!"
+    else
+      true
     end
     else
       return true

@@ -7,8 +7,7 @@ RSpec.describe GamesHelper, type: :model do
       it "should successfully populate the game board with piece objects" do
         user = FactoryBot.create(:user)
         game = FactoryBot.create(:game, owner: user)
-        game.populate_game!
-        expect(game.pieces.count).to eq(64)
+        expect(game.pieces.count).to eq(32)
     end
   end
 end
