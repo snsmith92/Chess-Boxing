@@ -2,7 +2,7 @@ class Game < ApplicationRecord
   attr_accessor :owner, :opponent
   after_create :populate_game!
 
-  belongs_to :owner, class_name: 'User' #, foreign_key: 'owner'
+  belongs_to :owner, class_name: 'User' , foreign_key: 'owner'
   belongs_to :opponent, class_name: 'User', foreign_key: 'opponent', optional: true
   has_many :pieces
 
@@ -38,24 +38,18 @@ class Game < ApplicationRecord
   end
 
   def in_check?
-    self.pieces.each do
-      if piece.type == "King" && piece.color == 'black'
-        black_in_check(position_x, position_y)
-      elsif piece.type == "King" && piece.color == 'white' 
-        white_in_check(position_x, position_y)
+    kings = self.pieces.find_by(type: 'King')
+    
+    kings.each.do |king|
+      if king.color == "black"
+        black_in_check?
       else 
-        return false 
+        white_in_check?
       end 
     end 
   end 
 
-  private
-
-  def piece_params
-    params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured, :image)
-  end
-
-  def black_in_check
+  def black_in_check?
     black_king = self.pieces.find_by(type: 'King', color: 'black')
     position_x = black_king.position_x
     position_y = black_king.position_y
@@ -63,29 +57,35 @@ class Game < ApplicationRecord
     self.pieces.each do |piece|
       if piece.valid_move?(position_x, position_y) && piece.color == 'white'
         return true
-      else 
+      else
         return false
       end 
     end 
   end 
 
 
-  def white_in_check
+  def white_in_check?
     white_king = self.pieces.find_by(type: 'King', color: 'white')
     position_x = white_king.position_x
     position_y = white_king.position_y
 
     self.pieces.each do |piece|
-      if piece.valid_move?(position_x, position_y) && piece.color == 'black'
+      if piece.valid_move?(position_x, position_y) && piece.color == 'black' 
         return true
-      else 
-        return false
+      else
+        return false 
       end 
     end 
   end 
-
+  
   def is_occupied?(destination_x, destination_y)
     Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
   end
 
-end
+  private
+
+  def piece_params
+    params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured, :image)
+  end
+
+end 
