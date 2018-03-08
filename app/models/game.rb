@@ -32,10 +32,59 @@ class Game < ApplicationRecord
     end
   end
 
+  def self.in_check?
+    @game.king.each do
+      queen_bishop_check
+      queen_rook_check
+      knight_check
+      pawn_check
+    end
+  end
+
   private
 
 
   def piece_params
     params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured)
   end
+
+  def queen_bishop_check
+    #checking if the king is obstructed diagonally by a queen or a bishop of the opposite color
+    #this would mean the king is in check
+    if @king.is_obstructed_diagonally(self.position_x, self.position_y) && 
+
+    end
+  end
+
+  def queen_rook_check
+    #checking if the king is obstructed horizontally or vertically by a queen or a rook of the opposite color
+    if @king.is_obstructed_vertically(self.position_x, self.position_y) && 
+
+    end
+
+    if @king.is_obstructed_horizontally(self.position_x, self.position_y) &&
+
+    end
+  end
+
+  def knight_check
+    #checking if there is a knight within a valid move from the king
+
+  end
+
+  def pawn_check
+    #checking to see if there is a pawn to the immediate diagonal of the king
+    #this will be tricky because pawns cannot capture diagonally backwards!
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
