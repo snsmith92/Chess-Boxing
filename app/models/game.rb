@@ -8,7 +8,6 @@ class Game < ApplicationRecord
 
   scope :available, -> { where(Game.arel_table[:owner_id].not_eq(0)).where(opponent_id = nil) }
 
-
   def populate_game!
     Rook.create(type: "Rook", game_id: self.id, position_x: 0, position_y: 0, color: "white", captured: false)
     Knight.create(type: "Knight", game_id: self.id, position_x: 1, position_y: 0, color: "white", captured: false)
@@ -38,14 +37,12 @@ class Game < ApplicationRecord
   end
 
   def in_check?
-    kings = self.pieces.find_by(type: 'King')
-    
-    kings.each.do |king|
-      if king.color == "black"
-        black_in_check?
-      else 
-        white_in_check?
-      end 
+    if self.pieces.find_by(type: 'King', color: 'black') != nil
+      black_in_check? 
+    elsif self.pieces.find_by(type: 'King', color: 'white') != nil
+      white_in_check?
+    else
+      return false
     end 
   end 
 
@@ -57,10 +54,9 @@ class Game < ApplicationRecord
     self.pieces.each do |piece|
       if piece.valid_move?(position_x, position_y) && piece.color == 'white'
         return true
-      else
-        return false
       end 
-    end 
+    end
+    return false 
   end 
 
 
@@ -72,10 +68,9 @@ class Game < ApplicationRecord
     self.pieces.each do |piece|
       if piece.valid_move?(position_x, position_y) && piece.color == 'black' 
         return true
-      else
-        return false 
-      end 
-    end 
+      end  
+    end
+    return false 
   end 
   
   def is_occupied?(destination_x, destination_y)
@@ -87,5 +82,4 @@ class Game < ApplicationRecord
   def piece_params
     params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured, :image)
   end
-
 end 
