@@ -5,9 +5,9 @@ RSpec.describe GamesHelper, type: :model do
   describe "Game" do
     context "at the very beginning of a game"
       it "should successfully populate the game board with piece objects" do
-        game = FactoryBot.create(:game, :opponent)
-        game.populate_game!
-        expect(game.pieces.count).to eq([16])
+        user = FactoryBot.create(:user)
+        game = FactoryBot.create(:game, owner: user)
+        expect(game.pieces.count).to eq(32)
     end
   end
 end
