@@ -120,15 +120,17 @@ class Piece < ApplicationRecord
     y_destination = position_y
     move_count = moves + 1
     #moving to an empty space, move is valid
-    if (is_occupied?(x_destination, y_destination) == false) && (valid_move?(x_destination, y_destination) == true)
+    if (is_occupied?(x_destination, y_destination) == false) && (valid_move?(x_destination, y_destination) == true) && game.turn == self.user
       update_attributes(:position_x => x_destination, :position_y => y_destination, :moves => move_count)
 
     #moving to an occupied space, move is valid
     #the valid_move? method covers the color of the piece
-    elsif is_occupied?(x_destination, y_destination) && valid_move?(x_destination, y_destination)
+    elsif is_occupied?(x_destination, y_destination) && valid_move?(x_destination, y_destination) && game.turn == self.user
       game.pieces.where(position_x = x_destination, position_y = y_destination).delete
       piece.update_attributes(:position_x => x_destination, :position_y => y_destination)
     end
+    # change turn after move_to 
+    game.update_turn
   end
 
   def valid_move_vertical?(position_x, position_y)

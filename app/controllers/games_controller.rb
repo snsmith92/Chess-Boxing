@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :update, :show] 
+
   def index
     @games = Game.available
   end
@@ -24,21 +26,20 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
-    # byebug
-    # if @game.valid? && @game.owner != current_user.id
-    if @game.owner != current_user.id
-      @game.update_attribute(:opponent, current_user.id)
+
+    if @game.owner != current_user
+      @game.update_attribute(:opponent, current_user)
       @game.save
       redirect_to game_path(@game)
     else
-      render :new, status: :unprocessable_entity
+      render :index, status: :unprocessable_entity
     end
   end
 
 private
 
   def game_params
-    params.require(:game).permit(:name, :owner, :opponent, :game_id)
+    params.require(:game).permit(:name, :owner, :opponent, :game_id, :turn)
   end
 
 end

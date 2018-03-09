@@ -1,5 +1,5 @@
 class AddUserToPieces < ActiveRecord::Migration[5.0]
   def change
-    add_column :pieces, :user, :integer
+    add_column :pieces, :user_id, :integer
   end
 end
