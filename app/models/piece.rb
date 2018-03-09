@@ -1,5 +1,6 @@
 class Piece < ApplicationRecord
   belongs_to :game
+  belongs_to :user
   delegate :king, :queen, :bishop, :knight, :rook, :pawn, to: :pieces
 
   def outside_board?(position_x, position_y)

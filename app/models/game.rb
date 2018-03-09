@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   attr_accessor :owner, :opponent
   after_create :populate_game!
+  after_create  :set_turn
 
   belongs_to :owner, class_name: 'User' , foreign_key: 'owner'
   belongs_to :opponent, class_name: 'User', foreign_key: 'opponent', optional: true
@@ -65,8 +66,6 @@ class Game < ApplicationRecord
     position_x = white_king.position_x
     position_y = white_king.position_y
 
-    # binding.pry
-
     pieces.where(color: 'black', game_id: self).each do |piece|
       if piece.valid_move?(position_x, position_y) == true # && piece.color == 'black' 
         return true
@@ -78,6 +77,18 @@ class Game < ApplicationRecord
   def is_occupied?(destination_x, destination_y)
     Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
   end
+
+
+  def set_turn
+    if @turn == nil
+      @turn == self.game.owner
+    elsif @turn == self.game.owner
+      @turn == self.game.opponent
+    else @turn == self.game.opponent
+      @turn == self.game.owner
+    end 
+  end 
+
 
   private
 
