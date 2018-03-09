@@ -2,8 +2,8 @@ class Rook < Piece
   scope :piece, -> {where(type: 'Rook')}
 
   def valid_move?(position_x, position_y)
-    position_x = x_destination
-    position_y = y_destination
+    x_destination = position_x 
+    y_destination = position_y
 
     if self.position_x.to_i == x_destination # vertical move
       valid_move_vertical?(position_x, position_y)

@@ -65,8 +65,10 @@ class Game < ApplicationRecord
     position_x = white_king.position_x
     position_y = white_king.position_y
 
-    self.pieces.each do |piece|
-      if piece.valid_move?(position_x, position_y) && piece.color == 'black' 
+    binding.pry
+
+    pieces.where(color: 'black', game_id: self).each do |piece|
+      if piece.valid_move?(position_x, position_y) == true # && piece.color == 'black' 
         return true
       end  
     end
