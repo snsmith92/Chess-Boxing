@@ -85,3 +85,4 @@ class Game < ApplicationRecord
     params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured, :image)
   end
 end 
+
