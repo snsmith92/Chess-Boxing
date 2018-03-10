@@ -79,6 +79,27 @@ class Game < ApplicationRecord
     Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
   end
 
+  def checkmate?
+    #in_check? must first return true
+    return false if ! in_check?
+    #in_check? must return true for every possible move the king could make from the starting position
+    king = self.pieces.find_by(type: 'King')
+    king_x = king.position_x
+    king_y = king.position_y
+
+    #try to make this more concise
+    if king.valid_move?(king_x + 1, king_y) && in_check?
+    if king.valid_move?(king_x - 1, king_y)
+    if king.valid_move?(king_x, king_y + 1)
+    if king.valid_move?(king_x, king_y - 1)
+    if king.valid_move?(king_x + 1, king_y + 1)
+    if king.valid_move?(king_x - 1, king_y - 1)
+    if king.valid_move?(king_x + 1, king_y - 1)
+    if king.valid_move?(king_x - 1, king_y + 1)
+
+
+  end
+
   private
 
   def piece_params
