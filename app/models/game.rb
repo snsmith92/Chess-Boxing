@@ -81,22 +81,23 @@ class Game < ApplicationRecord
 
   def checkmate?
     #in_check? must first return true
-    return false if ! in_check?
+    return false if ! self.in_check?
     #in_check? must return true for every possible move the king could make from the starting position
     king = self.pieces.find_by(type: 'King')
     king_x = king.position_x
     king_y = king.position_y
 
-    #try to make this more concise
-    if king.valid_move?(king_x + 1, king_y) && in_check?
-    if king.valid_move?(king_x - 1, king_y)
-    if king.valid_move?(king_x, king_y + 1)
-    if king.valid_move?(king_x, king_y - 1)
-    if king.valid_move?(king_x + 1, king_y + 1)
-    if king.valid_move?(king_x - 1, king_y - 1)
-    if king.valid_move?(king_x + 1, king_y - 1)
-    if king.valid_move?(king_x - 1, king_y + 1)
-
+    available_king_moves = [[king_x + 1, king_y], [king_x - 1, king_y], [king_x, king_y + 1], [king_x, king_y - 1],
+     [king_x + 1, king_y + 1], [king_x - 1, king_y - 1], [king_x + 1, king_y - 1], [king_x - 1, king_y + 1]]
+    available_king_moves.each { |move|
+      if king.valid_move?(move)
+        king.move_to!(move)
+        if ! self.in_check?
+          return false
+          king.update_attributes(:position_x => king_x, :position_y => king_y)
+        end
+      end
+    }
 
   end
 
