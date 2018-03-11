@@ -81,10 +81,13 @@ class Game < ApplicationRecord
     if white_in_check? || black_in_check? # if game in check then there cannot be a stalemate
       return false
     else
-      (0..7).each do |position_x| #loop through each position_x and position_y combination on the board
+      #loop through each position_x and position_y combination on the board
+      (0..7).each do |position_x| 
         (0..7).each do |position_y| 
+          # loop through each piece on the board
           pieces.each do |piece|
-            if piece.valid_move(position_x, position_y) && # method to see if king is in check, inverse (!) # check all valid moves and see if it does not put the king in check, if so then it cannot be a stalemate
+            # check all valid moves and see if it does not put the king in check, if so then it cannot be a stalemate
+            if piece.valid_move(position_x, position_y) && # how to see if king is in check, inverse (!) 
               return false 
             end
           end 
