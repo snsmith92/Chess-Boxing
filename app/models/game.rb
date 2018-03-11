@@ -72,6 +72,16 @@ class Game < ApplicationRecord
     end
     return false 
   end 
+
+  def put_in_check?(piece, x_destination_x, y_destination)
+    if piece.valid_move?(x_destination, y_destination)
+      if piece.position_x == x_destination && piece.position_y == y_destination 
+        self.in_check?
+      end
+    else
+      return #invalid move so...
+    end 
+  end 
   
   def is_occupied?(destination_x, destination_y)
     Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
@@ -87,7 +97,7 @@ class Game < ApplicationRecord
           # loop through each piece on the board
           pieces.each do |piece|
             # check all valid moves and see if it does not put the king in check, if so then it cannot be a stalemate
-            if piece.valid_move(position_x, position_y) && # how to see if king is in check, inverse (!) 
+            if piece.valid_move(position_x, position_y) && puts_in_check?(piece, position_x, position_y) == false 
               return false 
             end
           end 
