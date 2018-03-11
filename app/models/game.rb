@@ -79,10 +79,18 @@ class Game < ApplicationRecord
     Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
   end
 
+  def stalemate?(player) # A stalemate happens when a player cannot make a legal move without moving themself into check.
+    if player == self.owner
+
+    else player == self.opponent
+
+    end 
+
+  end 
+
   private
 
   def piece_params
     params.require(:piece).permit(:type, :position_x, :position_y, :game_id, :color, :captured, :image)
   end
 end 
-
