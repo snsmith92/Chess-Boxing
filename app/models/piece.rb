@@ -16,7 +16,7 @@ class Piece < ApplicationRecord
   end
 
   def show_image
-    "#{type.downcase}-#{color.downcase}.png"
+    "#{self.type.downcase}-#{self.color.downcase}.png"
   end
 
   def is_occupied?(destination_x, destination_y)
