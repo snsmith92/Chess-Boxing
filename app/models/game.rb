@@ -65,12 +65,10 @@ class Game < ApplicationRecord
     position_x = white_king.position_x
     position_y = white_king.position_y
 
-    # binding.pry
-
     pieces.where(color: 'black', game_id: self).each do |piece|
-      if piece.valid_move?(position_x, position_y) == true # && piece.color == 'black' 
+      if piece.valid_move?(position_x, position_y) == true && piece.color == 'black' 
         return true
-      end  
+      end
     end
     return false 
   end 
@@ -79,14 +77,22 @@ class Game < ApplicationRecord
     Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
   end
 
-  def stalemate?(player) # A stalemate happens when a player cannot make a legal move without moving themself into check.
-    if player == self.owner
-
-    else player == self.opponent
-
-    end 
-
-  end 
+  def stalemate? # A stalemate happens when a player cannot make a legal move without moving themself into check. Player is NOT in check but has no legal move.
+    if white_in_check? || black_in_check? # if game in check then there cannot be a stalemate
+      return false
+    else
+      (0..7).each do |position_x| #loop through each position_x and position_y combination on the board
+        (0..7).each do |position_y| 
+          pieces.each do |piece|
+            if piece.valid_move(position_x, position_y) && # method to see if king is in check, inverse (!) # check all valid moves and see if it does not put the king in check, if so then it cannot be a stalemate
+              return false 
+            end
+          end 
+        end 
+      end 
+      return true
+    end
+  end  
 
   private
 
