@@ -7,7 +7,7 @@ class Piece < ApplicationRecord
   end
 
   def valid_move?(position_x, position_y)
-    if outside_board?(position_x, position_y) || is_obstructed()
+    if outside_board?(position_x, position_y)
       return false
     else
       return true
@@ -52,13 +52,11 @@ class Piece < ApplicationRecord
     y_current = self.position_y
     y_destination = position_y
 
-    if y_current < y_destination #up
-      # puts "MOVIN ON UP"
+    if y_current < y_destination
       (y_current+1).upto(y_destination-1) do |y|
         return is_occupied?(x_current, y)
       end
       else
-        # puts "MOVING DOWN"
         (y_current-1).downto(y_destination+1) do |y|
         return is_occupied?(x_current, y)
       end
