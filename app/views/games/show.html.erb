@@ -32,10 +32,15 @@
     });
 
     $("td").droppable({
-      drop: function() {
+      drop: function( event, ui ) {
+        $.ajax({
+          type: 'PUT',
+          url: 
+          data: { piece: { position_y:, position_x: } }
+        });
         alert( "dropped");
       }
-    })
+    });
 
   });
 
