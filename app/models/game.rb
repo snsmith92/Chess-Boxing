@@ -2,11 +2,11 @@ class Game < ApplicationRecord
   attr_accessor :owner, :opponent
   after_create :populate_game!
 
-  belongs_to :owner, class_name: 'User' , foreign_key: 'owner'
-  belongs_to :opponent, class_name: 'User', foreign_key: 'opponent', optional: true
+  belongs_to :owner, class_name: 'User'
+  belongs_to :opponent, class_name: 'User', optional: true
   has_many :pieces
 
-  scope :available, -> { where(Game.arel_table[:owner_id].not_eq(0)).where(opponent_id = nil) }
+  # scope :available, -> { where(Game.arel_table[:owner].not_eq(0)).where(opponent: nil) }
 
   def populate_game!
     Rook.create(type: "Rook", game_id: self.id, moves: 0, position_x: 0, position_y: 0, color: "white", captured: false)
@@ -63,9 +63,7 @@ class Game < ApplicationRecord
   def white_in_check?
     white_king = self.pieces.find_by(type: 'King', color: 'white')
     position_x = white_king.position_x
-    position_y = white_king.position_y
-
-    # binding.pry
+    position_y = white_king.position_y  
 
     pieces.where(color: 'black', game_id: self).each do |piece|
       if piece.valid_move?(position_x, position_y) == true # && piece.color == 'black' 

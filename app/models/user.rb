@@ -4,8 +4,8 @@ class User < ApplicationRecord
   validate :validate_username
 
   # Db associations
-  has_many :started_games, class_name: "Game", foreign_key: "owner_id"
-  has_many :opponent_games, class_name: "Game", foreign_key: "opponent_id"
+  has_many :started_games, class_name: 'Game', foreign_key: 'owner_id'
+  has_many :opponent_games, class_name: 'Game', foreign_key: 'opponent_id'
 
   # Log in with username or email - associated models
   def login=(login)

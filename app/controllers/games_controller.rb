@@ -1,6 +1,8 @@
 class GamesController < ApplicationController
+  before_action :authenticate_user!, only: [:create]
+
   def index
-    @games = Game.available
+    @games = Game.all
   end
 
   def new
@@ -8,9 +10,14 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(game_params)
-    @game.owner = current_user
+    @game = current_user.started_games.create(game_params)
     @game.save
+    # @game.owner = current_user.id
+    # @game = current_user.started_games.create(game_params)
+    # @game = Game.create(game_params)
+    # @game.owner = curent_user
+    # @game.save
+    # @game.update_attribute(:owner, current_user)
     redirect_to game_path(@game)
   end
 
@@ -38,7 +45,7 @@ class GamesController < ApplicationController
 private
 
   def game_params
-    params.require(:game).permit(:name, :owner, :opponent, :game_id)
+    params.require(:game).permit(:name)
   end
 
 end
