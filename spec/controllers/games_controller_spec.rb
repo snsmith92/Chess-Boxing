@@ -70,7 +70,7 @@ RSpec.describe GamesController, type: :controller do
       game = FactoryBot.create(:game, owner: user, opponent: nil)
 
       get :show, params: { id: game.id }
-      expect(response).to have_http_status(:forbidden)
+      expect(response).to redirect_to new_user_session_path
     end 
 
     it "should successfully show the game if the game is found" do

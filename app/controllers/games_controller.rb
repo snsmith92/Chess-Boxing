@@ -20,8 +20,9 @@ class GamesController < ApplicationController
     @game = Game.find_by_id(params[:id])
     @pieces = Piece.where(game_id: @game)
     return render text: "Not Found", status: :not_found if @game.blank? 
-    return render text: "Forbidden", status: :forbidden if user_signed_in? == false # || @game.owner != current_user || @game.opponent != current_user
+    redirect_to new_user_session_path if !user_signed_in?
   end
+    
 
   def update
     @game = Game.find(params[:id])
