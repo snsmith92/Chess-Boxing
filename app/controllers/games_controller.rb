@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:create]
+  before_action :authenticate_user!, only: [:create, :new]
 
   def index
     @games = Game.available
@@ -13,7 +13,7 @@ class GamesController < ApplicationController
     @game = Game.create(game_params)
     @game.update_attributes(:owner => current_user)
     @game.save!
-    redirect_to game_path(@game)
+    redirect_to root_path
   end
 
   def show
@@ -29,7 +29,7 @@ class GamesController < ApplicationController
     # byebug
     # if @game.valid? && @game.owner != current_user.id
     if @game.owner != current_user.id
-      @game.update_attribute(:opponent, current_user.id)
+      @game.update_attribute(:opponent, current_user)
       @game.save
       redirect_to game_path(@game)
     else
