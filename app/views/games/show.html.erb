@@ -8,7 +8,7 @@
     <% 7.downto(0) do |row| %>
       <tr> 
         <% 0.upto(7) do |column| %>
-          <td id = 'pos<%= "#{column}_#{row}"%>'>    
+          <td id = 'pos<%= "#{column}_#{row}"%>' class = 'square'>    
             <% @pieces.each do |piece|%>
               <% if piece.position_y.to_i == row && piece.position_x.to_i == column %>
                 <%= link_to piece_path(piece) do %>
@@ -25,7 +25,18 @@
 </div>
 
 <script>
+
   $(function() {
-    $('.drag').draggable();
+    $(".drag").draggable({
+      containment: "table"
+    });
+
+    $("td").droppable({
+      drop: function() {
+        alert( "dropped");
+      }
+    })
+
   });
+
 </script>
