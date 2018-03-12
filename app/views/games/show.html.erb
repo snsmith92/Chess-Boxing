@@ -12,7 +12,7 @@
             <% @pieces.each do |piece|%>
               <% if piece.position_y.to_i == row && piece.position_x.to_i == column %>
                 <%= link_to piece_path(piece) do %>
-                  <%= image_tag(piece.show_image, class: "img-fluid")  %>
+                  <%= image_tag(piece.show_image, class: "img-fluid drag")  %>
                 <% end %>
               <% end %>
             <% end %>
@@ -23,3 +23,7 @@
     <br class="clr">
   </table>
 </div>
+
+<script>
+
+</script>
