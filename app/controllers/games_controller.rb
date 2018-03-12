@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
   def index
-    @games = Game.all
+    @games = Game.available
   end
 
   def new
@@ -12,14 +12,7 @@ class GamesController < ApplicationController
   def create
     @game = Game.create(game_params)
     @game.update_attributes(:owner => current_user)
-    # @game.owner_id = current_user
     @game.save!
-    # @game.owner = current_user.id
-    # @game = current_user.started_games.create(game_params)
-    # @game = Game.create(game_params)
-    # @game.owner = curent_user
-    # @game.save
-    # @game.update_attribute(:owner, current_user)
     redirect_to game_path(@game)
   end
 
