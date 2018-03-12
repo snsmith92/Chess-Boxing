@@ -26,8 +26,6 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
-    # byebug
-    # if @game.valid? && @game.owner != current_user.id
     if @game.owner != current_user.id
       @game.update_attribute(:opponent, current_user)
       @game.save
