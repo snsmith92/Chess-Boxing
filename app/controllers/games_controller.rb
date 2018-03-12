@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :new]
+  before_action :authenticate_user!, only: [:create, :new, :update, :show ]
 
   def index
     @games = Game.available
@@ -17,11 +17,10 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
+    @game = Game.find_by_id(params[:id])
     @pieces = Piece.where(game_id: @game)
-    if user_signed_in? == false
-      redirect_to new_user_session_path
-    end
+    return render text: "Not Found", status: :not_found if @game.blank? 
+    return render text: "Forbidden", status: :forbidden if user_signed_in? == false # || @game.owner != current_user || @game.opponent != current_user
   end
 
   def update

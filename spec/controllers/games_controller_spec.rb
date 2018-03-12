@@ -45,21 +45,52 @@ RSpec.describe GamesController, type: :controller do
 
   describe "games#update action" do
     it "should not allow unauthenticated users to join a game" do
-      user = FactoryBot.create(:user)
-      game = FactoryBot.create(:game, owner: user, opponent: nil)
-      # put :update, params: { id: game.id, game: { opponent: nil } }
-      get :show, params: { id: game.id }
+      user_1 = FactoryBot.create(:user)
+      user_2 = FactoryBot.create(:user)
+      game = FactoryBot.create(:game, owner: user_1, opponent: nil)
+
+      patch :update, params: { id: game.id, game: { owner: user_1, opponent: user_2 } }
       expect(response).to redirect_to new_user_session_path
     end
 
     it "should successfully update attributes for opponent and go to game show page" do
-      user1 = FactoryBot.create(:user)
-      # user1 = users[1]
-      user2 = FactoryBot.create(:user)
-      sign_in user2
-      game = FactoryBot.create(:game, owner: user1, opponent: nil)
-      patch :update, params: { id: game.id, game: { owner: user1, opponent: user2 } }
+      user_1 = FactoryBot.create(:user)
+      user_2 = FactoryBot.create(:user)
+      sign_in user_2
+
+      game = FactoryBot.create(:game, owner: user_1, opponent: nil)
+      patch :update, params: { id: game.id, game: { owner: user_1, opponent: user_2 } }
       expect(response).to redirect_to game_path(game)
     end
   end
+
+  describe "games#show action" do
+    it "should only show the game to signed in users" do
+      user = FactoryBot.create(:user)
+      game = FactoryBot.create(:game, owner: user, opponent: nil)
+
+      get :show, params: { id: game.id }
+      expect(response).to have_http_status(:forbidden)
+    end 
+
+    it "should successfully show the game if the game is found" do
+      user_1 = FactoryBot.create(:user)
+      user_2 = FactoryBot.create(:user)
+      game = FactoryBot.create(:game, owner: user_1, opponent: user_2)
+
+      sign_in user_1
+
+      get :show, params: { id: game.id }
+      expect(response).to have_http_status(:success)
+    end 
+
+    it "should return 404 error if the game is not found" do
+      user = FactoryBot.create(:user)
+      sign_in user
+
+      get :show, params: { id: 'Test'}
+      expect(response).to have_http_status(:not_found)
+    end 
+
+  end 
 end
