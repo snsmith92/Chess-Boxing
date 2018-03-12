@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-  attr_accessor :owner, :opponent
+  attr_accessor :owner_id, :opponent_id
   after_create :populate_game!
 
   belongs_to :owner, class_name: 'User'

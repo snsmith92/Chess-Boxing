@@ -10,8 +10,10 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = current_user.started_games.create(game_params)
-    @game.save
+    @game = Game.create(game_params)
+    @game.update_attributes(:owner => current_user)
+    # @game.owner_id = current_user
+    @game.save!
     # @game.owner = current_user.id
     # @game = current_user.started_games.create(game_params)
     # @game = Game.create(game_params)
@@ -45,7 +47,7 @@ class GamesController < ApplicationController
 private
 
   def game_params
-    params.require(:game).permit(:name)
+    params.require(:game).permit(:name, :owner, :opponent)
   end
 
 end
