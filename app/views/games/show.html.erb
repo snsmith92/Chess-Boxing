@@ -12,7 +12,7 @@
             <% @pieces.each do |piece|%>
               <% if piece.position_y.to_i == row && piece.position_x.to_i == column %>
                 <%= link_to piece_path(piece) do %>
-                  <%= image_tag(piece.show_image, class: "img-fluid draggable")  %>
+                  <%= image_tag(piece.show_image, class: "img-fluid draggable", id:"piece#{column}_#{row}" ) %>
                 <% end %>
               <% end %>
             <% end %>
@@ -33,12 +33,15 @@
 
     $(".droppable").droppable({
       drop: function( event, ui ){
-        //var initialId = 
+        var initialId = ui.draggable.prop('id');
+        var initial_x = initialId.substring(5, 6);
+        var initial_y = initialId.substring(7);
         var targetId = event.target.id;
         var target_x = targetId.substring(3, 4);
         var target_y = targetId.substring(5);
         $(targetId).append(ui.draggable);
-        console.log("The new x for this piece is " + target_x + " and the new y for this piece is " + target_y);
+        console.log("the initial x for this piece was " + initial_x + " and the initial y for this piece was " + initial_y)
+        // console.log("The new x for this piece is " + target_x + " and the new y for this piece is " + target_y);
         alert("This piece has been dropped on " + targetId + "!");
       }
     });
