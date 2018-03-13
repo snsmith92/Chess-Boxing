@@ -33,9 +33,13 @@
 
     $(".droppable").droppable({
       drop: function( event, ui ){
-        var squareId = event.target.id;
-        $(squareId).append(ui.draggable);
-        console.log("dropped!");
+        //var initialId = 
+        var targetId = event.target.id;
+        var target_x = targetId.substring(3, 4);
+        var target_y = targetId.substring(5);
+        $(targetId).append(ui.draggable);
+        console.log("The new x for this piece is " + target_x + " and the new y for this piece is " + target_y);
+        alert("This piece has been dropped on " + targetId + "!");
       }
     });
     /* $("td").droppable({
