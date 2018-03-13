@@ -55,10 +55,12 @@ class Piece < ApplicationRecord
 
     if y_current < y_destination #up
       (y_current+1).upto(y_destination-1) do |y|
-        return is_occupied?(x_current, y)
+        return true if is_occupied?(x_current, y)
       end
-      else (y_current-1).downto(y_destination+1) do |y|
-        return is_occupied?(x_current, y)
+      false
+    else 
+      (y_current-1).downto(y_destination+1) do |y|
+        return true if is_occupied?(x_current, y)
       end
       false
     end
