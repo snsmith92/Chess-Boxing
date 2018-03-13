@@ -10,11 +10,13 @@
         <% 0.upto(7) do |column| %>
           <td id = 'pos<%= "#{column}_#{row}"%>' class = 'droppable'>    
             <% @pieces.each do |piece|%>
+              <div data-update-url = "<%= piece_path(piece) %>">
               <% if piece.position_y.to_i == row && piece.position_x.to_i == column %>
                 <%= link_to piece_path(piece) do %>
-                  <%= image_tag(piece.show_image, class: "img-fluid draggable", id:"piece#{column}_#{row}" ) %>
+                  <%= image_tag(piece.show_image, class: "img-fluid draggable", id:"piece#{column}_#{row}," ) %>
                 <% end %>
               <% end %>
+              </div>
             <% end %>
          </td >          
         <% end %>
@@ -42,19 +44,18 @@
         var target_x = targetId.substring(3, 4);
         var target_y = targetId.substring(5);
         var newId = "piece" + target_x + "_" + target_y; 
-
-        ui.droppable.css( { left: 0, top: 0} );
+        // ui.droppable.css( { left: 0, top: 0} );
         $(targetId).append(ui.draggable);
         $(ui.draggable).attr("id", newId);
         
         
 
-        /* $.ajax({
+        $.ajax({
           type: 'PUT',
-          url: ui.item.data('update-url'),
+          url: ui.draggable.data('update-url'),
           dataType: 'json',
           data: { piece: {position_x: target_x , position_y: target_y} }
-        }); */
+        });
 
 
         alert("This piece has been dropped on " + targetId + "!");

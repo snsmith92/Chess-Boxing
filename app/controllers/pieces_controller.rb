@@ -19,5 +19,5 @@ end
   private
 
   def piece_params
-    params.require(:piece)
+    params.require(:piece).permit(:position_x, :position_y)
   end
