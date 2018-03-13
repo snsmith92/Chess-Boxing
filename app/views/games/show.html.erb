@@ -39,12 +39,16 @@
         var targetId = event.target.id;
         var target_x = targetId.substring(3, 4);
         var target_y = targetId.substring(5);
+        var newId = "piece" + target_x + "_" + target_y; 
         $(targetId).append(ui.draggable);
-        console.log("the initial x for this piece was " + initial_x + " and the initial y for this piece was " + initial_y)
+        $(ui.draggable).attr("id", newId);
+        console.log("the new id for this piece is " + newId);
+        // console.log("the initial x for this piece was " + initial_x + " and the initial y for this piece was " + initial_y);
         // console.log("The new x for this piece is " + target_x + " and the new y for this piece is " + target_y);
         alert("This piece has been dropped on " + targetId + "!");
       }
     });
+
     /* $("td").droppable({
       drop: function( event, ui ) {
         $.ajax({
