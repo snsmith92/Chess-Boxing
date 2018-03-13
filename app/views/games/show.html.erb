@@ -8,11 +8,11 @@
     <% 7.downto(0) do |row| %>
       <tr> 
         <% 0.upto(7) do |column| %>
-          <td id = 'pos<%= "#{column}_#{row}"%>' class = 'square'>    
+          <td id = 'pos<%= "#{column}_#{row}"%>' class = 'droppable'>    
             <% @pieces.each do |piece|%>
               <% if piece.position_y.to_i == row && piece.position_x.to_i == column %>
                 <%= link_to piece_path(piece) do %>
-                  <%= image_tag(piece.show_image, class: "img-fluid drag")  %>
+                  <%= image_tag(piece.show_image, class: "img-fluid draggable")  %>
                 <% end %>
               <% end %>
             <% end %>
@@ -27,11 +27,18 @@
 <script>
 
   $(function() {
-    $(".drag").draggable({
+    $(".draggable").draggable({
       containment: "table"
     });
 
-    $("td").droppable({
+    $(".droppable").droppable({
+      drop: function( event, ui ){
+        var squareId = event.target.id;
+        $(squareId).append(ui.draggable);
+        console.log("dropped!");
+      }
+    });
+    /* $("td").droppable({
       drop: function( event, ui ) {
         $.ajax({
           type: 'PUT',
@@ -40,7 +47,7 @@
         });
         alert( "dropped");
       }
-    });
+    }); */
 
   });
 
