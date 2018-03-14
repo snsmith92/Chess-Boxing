@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :new, :update, :show ]
+
   def index
     @games = Game.available
   end
@@ -8,26 +10,24 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(game_params)
-    @game.owner = current_user
-    @game.save
-    redirect_to game_path(@game)
+    @game = Game.create(game_params)
+    @game.update_attributes(:owner => current_user)
+    @game.save!
+    redirect_to root_path
   end
 
   def show
-    @game = Game.find(params[:id])
+    @game = Game.find_by_id(params[:id])
     @pieces = Piece.where(game_id: @game)
-    if user_signed_in? == false
-      redirect_to new_user_session_path
-    end
+    return render text: "Not Found", status: :not_found if @game.blank? 
+    redirect_to new_user_session_path if !user_signed_in?
   end
+    
 
   def update
     @game = Game.find(params[:id])
-    # byebug
-    # if @game.valid? && @game.owner != current_user.id
     if @game.owner != current_user.id
-      @game.update_attribute(:opponent, current_user.id)
+      @game.update_attribute(:opponent, current_user)
       @game.save
       redirect_to game_path(@game)
     else
@@ -38,7 +38,7 @@ class GamesController < ApplicationController
 private
 
   def game_params
-    params.require(:game).permit(:name, :owner, :opponent, :game_id)
+    params.require(:game).permit(:name, :owner, :opponent)
   end
 
 end
