@@ -1,6 +1,8 @@
 class Piece < ApplicationRecord
+  # attr_accessor :position_x, :position_y
   belongs_to :game
   delegate :king, :queen, :bishop, :knight, :rook, :pawn, to: :pieces
+  
 
   def outside_board?(position_x, position_y)
     position_x < 0 || position_x > 7 || position_y < 0 || position_y > 7

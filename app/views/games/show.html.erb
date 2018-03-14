@@ -10,10 +10,10 @@
         <% 0.upto(7) do |column| %>
           <td id = 'pos<%= "#{column}_#{row}"%>' class = 'droppable'>    
             <% @pieces.each do |piece|%>
-              <div data-update-url = "<%= piece_path(piece) %>">
+              <div data-piece-id ="<%= piece.id %>">
               <% if piece.position_y.to_i == row && piece.position_x.to_i == column %>
                 <%= link_to piece_path(piece) do %>
-                  <%= image_tag(piece.show_image, class: "img-fluid draggable", id:"piece#{column}_#{row}," ) %>
+                  <%= image_tag(piece.show_image, class: "img-fluid draggable", 'data-piece-id': piece.id ,id:"piece#{column}_#{row}," ) %>
                 <% end %>
               <% end %>
               </div>
@@ -48,15 +48,13 @@
         $(targetId).append(ui.draggable);
         $(ui.draggable).attr("id", newId);
         
-        
 
         $.ajax({
           type: 'PUT',
-          url: ui.draggable.data('update-url'),
+          url: '/pieces/' + ui.draggable.data('piece-id') +'/',
           dataType: 'json',
-          data: { piece: {position_x: target_x , position_y: target_y} }
+          data: { piece: {position_x: target_x, position_y: target_y} }
         });
-
 
         alert("This piece has been dropped on " + targetId + "!");
       }
