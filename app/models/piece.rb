@@ -13,7 +13,8 @@ class Piece < ApplicationRecord
       return false
     elsif is_in_self_check?
        return false
-    else return true
+    else 
+      return true
     end
   end
 
@@ -120,17 +121,16 @@ class Piece < ApplicationRecord
     y_current = self.position_y
     x_destination = position_x
     y_destination = position_y
-    move_count = moves + 1
-    #moving to an empty space, move is valid
-    if (is_occupied?(x_destination, y_destination) == false) && (valid_move?(x_destination, y_destination) == true)
+    move_count = self.moves + 1
+    
+    if self.valid_move? == false
+      return false
+    elsif !is_occupied?(x_destination, y_destination)
       update_attributes(:position_x => x_destination, :position_y => y_destination, :moves => move_count)
-
-    #moving to an occupied space, move is valid
-    #the valid_move? method covers the color of the piece
-    elsif is_occupied?(x_destination, y_destination) && valid_move?(x_destination, y_destination)
-      game.pieces.where(position_x = x_destination, position_y = y_destination).delete
-      piece.update_attributes(:position_x => x_destination, :position_y => y_destination)
-    end
+    else is_occupied?(x_destination, y_destination) 
+      game.pieces.where(position_x = x_destination, position_y = y_destination).update_attributes(:captured => true)
+      update_attributes(:position_x => x_destination, :position_y => y_destination, :moves => move_count)
+    end 
   end
 
   def valid_move_vertical?(position_x, position_y)
@@ -141,7 +141,7 @@ class Piece < ApplicationRecord
     !is_obstructed_horizontally(position_x, position_y)
   end 
 
-  def is_in_self_check?
+  def in_self_check?
     if color == "white"
       game.white_in_check
     elsif color == "black"

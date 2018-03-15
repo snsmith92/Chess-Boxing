@@ -50,7 +50,7 @@ RSpec.describe Piece, type: :model do
 
   end
 
-  describe "is_in_self_check" do
+  describe "in_self_check" do
     it "should check to see if moving a piece puts a player in self-check" do
       game.create
       king = King.create(color: "white", game_id: 1, position_x: 0, position_y: 2)
@@ -60,4 +60,15 @@ RSpec.describe Piece, type: :model do
       expect(queen.is_in_self_check?).to eq(true)
     end
   end
+
+  context "move_to!" do
+    it "should update attributes if a move is valid" do
+
+
+    end 
+
+    it "should not update attributes if a move is invalid" do
+      
+    end
+  end 
 end

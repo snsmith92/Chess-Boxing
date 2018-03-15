@@ -26,6 +26,8 @@
   </table>
 </div>
 
+
+
 <script>
 
   $(function() {
@@ -44,10 +46,9 @@
         var target_x = targetId.substring(3, 4);
         var target_y = targetId.substring(5);
         var newId = "piece" + target_x + "_" + target_y; 
-        // ui.droppable.css( { left: 0, top: 0} );
         $(targetId).append(ui.draggable);
         $(ui.draggable).attr("id", newId);
-        
+
 
         $.ajax({
           type: 'PUT',
@@ -61,4 +62,4 @@
     });
   });
 
-</script>
+</script> 
