@@ -8,13 +8,15 @@
     <% 7.downto(0) do |row| %>
       <tr> 
         <% 0.upto(7) do |column| %>
-          <td id = 'pos<%= "#{column}_#{row}"%>'>    
+          <td id = 'pos<%= "#{column}_#{row}"%>' class = 'droppable'>    
             <% @pieces.each do |piece|%>
+              <div data-piece-id ="<%= piece.id %>">
               <% if piece.position_y.to_i == row && piece.position_x.to_i == column %>
                 <%= link_to piece_path(piece) do %>
-                  <%= image_tag(piece.show_image, class: "img-fluid")  %>
+                  <%= image_tag(piece.show_image, class: "img-fluid draggable", 'data-piece-id': piece.id ,id:"piece#{column}_#{row}," ) %>
                 <% end %>
               <% end %>
+              </div>
             <% end %>
          </td >          
         <% end %>
@@ -23,3 +25,40 @@
     <br class="clr">
   </table>
 </div>
+
+<script>
+
+  $(function() {
+    $(".draggable").draggable({
+      containment: "table",
+      snap: ".droppable",
+      snapMode: "inner"
+    });
+
+    $(".droppable").droppable({
+      drop: function( event, ui ){
+        var initialId = ui.draggable.prop('id');
+        var initial_x = initialId.substring(5, 6);
+        var initial_y = initialId.substring(7);
+        var targetId = event.target.id;
+        var target_x = targetId.substring(3, 4);
+        var target_y = targetId.substring(5);
+        var newId = "piece" + target_x + "_" + target_y; 
+        // ui.droppable.css( { left: 0, top: 0} );
+        $(targetId).append(ui.draggable);
+        $(ui.draggable).attr("id", newId);
+        
+
+        $.ajax({
+          type: 'PUT',
+          url: '/pieces/' + ui.draggable.data('piece-id') +'/',
+          dataType: 'json',
+          data: { piece: {position_x: target_x, position_y: target_y} }
+        });
+
+        alert("This piece has been dropped on " + targetId + "!");
+      }
+    });
+  });
+
+</script>
