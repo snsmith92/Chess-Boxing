@@ -90,16 +90,15 @@ class Game < ApplicationRecord
     available_king_moves = [[king_x + 1, king_y], [king_x - 1, king_y], [king_x, king_y + 1], [king_x, king_y - 1],
      [king_x + 1, king_y + 1], [king_x - 1, king_y - 1], [king_x + 1, king_y - 1], [king_x - 1, king_y + 1]]
     available_king_moves.each { |move|
-        puts move[0]
-        puts move[1]
-        puts "----"
-      #   if king.valid_move?(move)
-      #     king.move_to!(move)
-      #     if ! self.in_check?
-      #       return false
-      #       king.update_attributes(:position_x => king_x, :position_y => king_y)
-      #     end
-      #   end
+      if king.valid_move?(move[0], move[1])
+        king.move_to!(move[0], move[1])
+        if ! self.in_check?
+          king.update_attributes(:position_x => king_x, :position_y => king_y)
+          return false
+        else 
+          return true
+        end
+      end
     }
 
   end
