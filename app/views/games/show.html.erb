@@ -54,7 +54,11 @@
           type: 'PUT',
           url: '/pieces/' + ui.draggable.data('piece-id') +'/',
           dataType: 'json',
-          data: { piece: {position_x: target_x, position_y: target_y} }
+          data: { piece: {position_x: target_x, position_y: target_y} },
+          error: function() {
+            location.reload(true);
+          // if a move is not valid it will refresh the page
+          }
         });
 
         alert("This piece has been dropped on " + targetId + "!");
