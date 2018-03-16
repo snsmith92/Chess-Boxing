@@ -31,14 +31,14 @@ class GamesController < ApplicationController
       @game.save
       redirect_to game_path(@game)
     else
-      render :new, status: :unprocessable_entity
+      render :index, status: :unprocessable_entity
     end
   end
 
 private
 
   def game_params
-    params.require(:game).permit(:name, :owner, :opponent)
+    params.require(:game).permit(:name, :owner, :opponent, :game_id, :turn)
   end
 
 end

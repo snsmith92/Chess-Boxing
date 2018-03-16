@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   attr_accessor :owner_id, :opponent_id
   after_create :populate_game!
+  # after_create  :set_turn
 
   belongs_to :owner, class_name: 'User'
   belongs_to :opponent, class_name: 'User', optional: true
@@ -9,30 +10,30 @@ class Game < ApplicationRecord
   scope :available, -> { where(Game.arel_table[:owner_id].not_eq(0)).where(opponent = nil) }
 
   def populate_game!
-    Rook.create(type: "Rook", game_id: self.id, moves: 0, position_x: 0, position_y: 0, color: "white", captured: false)
-    Knight.create(type: "Knight", game_id: self.id, moves: 0, position_x: 1, position_y: 0, color: "white", captured: false)
-    Bishop.create(type: "Bishop", game_id: self.id, moves: 0, position_x: 2, position_y: 0, color: "white", captured: false)
-    King.create(type: "King", game_id: self.id, moves: 0, position_x: 3, position_y: 0, color: "white", captured: false)
-    Queen.create(type: "Queen", game_id: self.id, moves: 0, position_x: 4, position_y: 0, color: "white", captured: false)
-    Bishop.create(type: "Bishop", game_id: self.id, moves: 0, position_x: 5, position_y: 0, color: "white", captured: false)
-    Knight.create(type: "Knight", game_id: self.id, moves: 0, position_x: 6, position_y: 0, color: "white", captured: false)
-    Rook.create(type: "Rook", game_id: self.id, moves: 0, position_x: 7, position_y: 0, color: "white", captured: false)
+    Rook.create(game_id: self.id, moves: 0, position_x: 0, position_y: 0, color: "white", captured: false, user: owner)
+    Knight.create(game_id: self.id, moves: 0, position_x: 1, position_y: 0, color: "white", captured: false, user: owner)
+    Bishop.create(game_id: self.id, moves: 0, position_x: 2, position_y: 0, color: "white", captured: false, user: owner)
+    King.create(game_id: self.id, moves: 0, position_x: 3, position_y: 0, color: "white", captured: false, user: owner)
+    Queen.create(game_id: self.id, moves: 0, position_x: 4, position_y: 0, color: "white", captured: false, user: owner)
+    Bishop.create(game_id: self.id, moves: 0, position_x: 5, position_y: 0, color: "white", captured: false, user: owner)
+    Knight.create(game_id: self.id, moves: 0, position_x: 6, position_y: 0, color: "white", captured: false, user: owner)
+    Rook.create(game_id: self.id, moves: 0, position_x: 7, position_y: 0, color: "white", captured: false, user: owner)
 
     (0..7).each do |n|
-      Pawn.create(type: "Pawn", game_id: self.id, moves: 0, position_x: n, position_y: 1, color: "white", captured: false)
+      Pawn.create(game_id: self.id, moves: 0, position_x: n, position_y: 1, color: "white", captured: false, user: owner)
     end
 
-    Rook.create(type: "Rook", game_id: self.id, moves: 0, position_x: 0, position_y: 7, color: "black", captured: false)
-    Knight.create(type: "Knight", game_id: self.id, moves: 0, position_x: 1, position_y: 7, color: "black", captured: false)
-    Bishop.create(type: "Bishop", game_id: self.id, moves: 0, position_x: 2, position_y: 7, color: "black", captured: false)
-    King.create(type: "King", game_id: self.id, moves: 0, position_x: 3, position_y: 7, color: "black", captured: false)
-    Queen.create(type: "Queen", game_id: self.id, moves: 0, position_x: 4, position_y: 7, color: "black", captured: false)
-    Bishop.create(type: "Bishop", game_id: self.id, moves: 0, position_x: 5, position_y: 7, color: "black", captured: false)
-    Knight.create(type: "Knight", game_id: self.id, moves: 0, position_x: 6, position_y: 7, color: "black", captured: false)
-    Rook.create(type: "Rook", game_id: self.id, moves: 0, position_x: 7, position_y: 7, color: "black", captured: false)
+    Rook.create(game_id: self.id, moves: 0, position_x: 0, position_y: 7, color: "black", captured: false, user: opponent)
+    Knight.create(game_id: self.id, moves: 0, position_x: 1, position_y: 7, color: "black", captured: false, user: opponent)
+    Bishop.create(game_id: self.id, moves: 0, position_x: 2, position_y: 7, color: "black", captured: false, user: opponent)
+    King.create(game_id: self.id, moves: 0, position_x: 3, position_y: 7, color: "black", captured: false, user: opponent)
+    Queen.create(game_id: self.id, moves: 0, position_x: 4, position_y: 7, color: "black", captured: false, user: opponent)
+    Bishop.create(game_id: self.id, moves: 0, position_x: 5, position_y: 7, color: "black", captured: false, user: opponent)
+    Knight.create(game_id: self.id, moves: 0, position_x: 6, position_y: 7, color: "black", captured: false, user: opponent)
+    Rook.create(game_id: self.id, moves: 0, position_x: 7, position_y: 7, color: "black", captured: false, user: opponent)
 
     (0..7).each do |n|
-      Pawn.create(type: "Pawn", game_id: self.id, moves: 0, position_x: n, position_y: 6, color: "black", captured: false)
+      Pawn.create(game_id: self.id, moves: 0, position_x: n, position_y: 6, color: "black", captured: false, user: opponent)
     end
   end
 
@@ -76,6 +77,20 @@ class Game < ApplicationRecord
   def is_occupied?(destination_x, destination_y)
     Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
   end
+
+
+  def set_turn
+    self.turn == self.owner
+  end 
+
+
+  def update_turn
+    if self.turn == self.owner
+      update_attributes(turn: self.opponent)
+    else self.turn == self.opponent
+      update_attributes(turn: self.owner)
+    end 
+  end 
 
   private
 

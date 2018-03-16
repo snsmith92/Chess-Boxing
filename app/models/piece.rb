@@ -1,6 +1,7 @@
 class Piece < ApplicationRecord
   # attr_accessor :position_x, :position_y
   belongs_to :game
+  belongs_to :user
   delegate :king, :queen, :bishop, :knight, :rook, :pawn, to: :pieces
   
 
@@ -19,7 +20,7 @@ class Piece < ApplicationRecord
   end
 
   def show_image
-    "#{type.downcase}-#{color.downcase}.png"
+    "#{self.type.downcase}-#{self.color.downcase}.png"
   end
 
   def is_occupied?(destination_x, destination_y)
@@ -121,6 +122,7 @@ class Piece < ApplicationRecord
     y_current = self.position_y.to_i
     x_destination = position_x
     y_destination = position_y
+<<<<<<< HEAD
     move_count = self.moves + 1
 
     if self.valid_move?(x_destination, y_destination) == false
@@ -131,6 +133,21 @@ class Piece < ApplicationRecord
       game.pieces.where(position_x = x_destination, position_y = y_destination).update_attributes(:captured => true)
       update_attributes(:position_x => x_destination, :position_y => y_destination, :moves => move_count)
     end 
+=======
+    move_count = moves + 1
+    #moving to an empty space, move is valid
+    if (is_occupied?(x_destination, y_destination) == false) && (valid_move?(x_destination, y_destination) == true) && game.turn == self.user
+      update_attributes(:position_x => x_destination, :position_y => y_destination, :moves => move_count)
+
+    #moving to an occupied space, move is valid
+    #the valid_move? method covers the color of the piece
+    elsif is_occupied?(x_destination, y_destination) && valid_move?(x_destination, y_destination) && game.turn == self.user
+      game.pieces.where(position_x = x_destination, position_y = y_destination).delete
+      piece.update_attributes(:position_x => x_destination, :position_y => y_destination)
+    end
+    # change turn after move_to 
+    game.update_turn
+>>>>>>> turn_logic
   end
 
   def valid_move_vertical?(position_x, position_y)
