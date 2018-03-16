@@ -117,17 +117,17 @@ class Piece < ApplicationRecord
    end
 
   def move_to!(position_x, position_y)
-    x_current = self.position_x
-    y_current = self.position_y
+    x_current = self.position_x.to_i
+    y_current = self.position_y.to_i
     x_destination = position_x
     y_destination = position_y
     move_count = self.moves + 1
-    
-    if self.valid_move? == false
+
+    if self.valid_move?(x_destination, y_destination) == false
       return false
-    elsif !is_occupied?(x_destination, y_destination)
+    elsif self.game.is_occupied?(x_destination, y_destination) == false
       update_attributes(:position_x => x_destination, :position_y => y_destination, :moves => move_count)
-    else is_occupied?(x_destination, y_destination) 
+    else self.game.is_occupied?(x_destination, y_destination)
       game.pieces.where(position_x = x_destination, position_y = y_destination).update_attributes(:captured => true)
       update_attributes(:position_x => x_destination, :position_y => y_destination, :moves => move_count)
     end 

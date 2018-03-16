@@ -2,8 +2,8 @@ class Pawn < Piece
   scope :piece, -> {where(type: 'Pawn')}
 
   def valid_move?(position_x, position_y)
-    x_current = self.position_x
-    y_current = self.position_y
+    x_current = self.position_x.to_i
+    y_current = self.position_y.to_i
     x_destination = position_x
     y_destination = position_y
 
@@ -20,7 +20,5 @@ class Pawn < Piece
     else
       true
     end
-    else
-      return true
   end
 end

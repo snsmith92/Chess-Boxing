@@ -12,9 +12,9 @@ class PiecesController < ApplicationController
 
   def update
     @piece = Piece.find(params[:id])
-    binding.pry
-    position_x = 
-    position_y = 
+    position_x = params[:piece][:position_x].to_i
+    position_y = params[:piece][:position_y].to_i
+    # binding.pry
     @piece.move_to!(position_x, position_y)
     # @piece.update_attributes(piece_params)
     redirect_to pieces_path(@piece)
