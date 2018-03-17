@@ -76,6 +76,28 @@ class Game < ApplicationRecord
     Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
   end
 
+  def checkmate?
+    #in_check? must first return true
+    return false if ! self.in_check?
+    #in_check? must return true for every possible move the king could make from the starting position
+    king = self.pieces.find_by(type: 'King')
+    king_x = king.position_x
+    king_y = king.position_y
+
+    available_king_moves = [[king_x + 1, king_y], [king_x - 1, king_y], [king_x, king_y + 1], [king_x, king_y - 1],
+     [king_x + 1, king_y + 1], [king_x - 1, king_y - 1], [king_x + 1, king_y - 1], [king_x - 1, king_y + 1]]
+    available_king_moves.each { |move|
+      if king.valid_move?(move[0], move[1])
+        king.move_to!(move[0], move[1])
+        if ! self.in_check?
+          king.update_attributes(:position_x => king_x, :position_y => king_y)
+          return false
+        else 
+          return true
+        end
+      end
+    }
+
   def set_turn!
     turn_id = self.owner.id.to_i
     self.update_attribute(turn: turn_id)
@@ -89,6 +111,7 @@ class Game < ApplicationRecord
     else
       self.update_attributes(turn_id: owner)
     end
+
   end
 
   private

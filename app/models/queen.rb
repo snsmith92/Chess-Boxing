@@ -1,11 +1,11 @@
 class Queen < Piece
   scope :piece, -> {where(type: 'Queen')}
 
-    def valid_move?
+    def valid_move?(position_x, position_y)
       current_x = self.position_x
       current_y = self.position_y
-      position_x = x_destination
-      position_y = y_destination
+      x_destination = position_x
+      y_destination = position_y
 
       if current_x == x_destination # vertical move
         valid_move_vertical?(position_x, position_y)
