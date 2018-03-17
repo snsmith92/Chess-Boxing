@@ -11,13 +11,17 @@ class PiecesController < ApplicationController
   end
 
   def update
-    @piece.update_attributes(piece_params)
+    @piece = Piece.find(params[:id])
+    @game = @piece.game
+    position_x = params[:piece][:position_x].to_i
+    position_y = params[:piece][:position_y].to_i
+    @piece.move_to!(position_x, position_y)
     redirect_to pieces_path(@piece)
   end
-end
 
   private
 
   def piece_params
-    params.require(:piece)
+    params.require(:piece).permit(:game_id, :position_x, :position_y)
   end
+end 
