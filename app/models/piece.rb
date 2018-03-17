@@ -128,9 +128,11 @@ class Piece < ApplicationRecord
       return false
     elsif self.game.is_occupied?(x_destination, y_destination) == false
       update_attributes(:position_x => x_destination, :position_y => y_destination, :moves => move_count)
+      self.game.update_turn!
     else self.game.is_occupied?(x_destination, y_destination)
       game.pieces.where(position_x = x_destination, position_y = y_destination).update_attributes(:captured => true)
       update_attributes(:position_x => x_destination, :position_y => y_destination, :moves => move_count)
+      self.game.update_turn!
     end 
   end
 

@@ -1,6 +1,5 @@
 class Game < ApplicationRecord
   attr_accessor :owner_id, :opponent_id, :turn
-  # after_update :populate_game!
 
   belongs_to :owner, class_name: 'User'
   belongs_to :opponent, class_name: 'User', optional: true
@@ -83,10 +82,12 @@ class Game < ApplicationRecord
   end
 
   def update_turn!
-    if self.turn == owner.id
-      self.turn = opponent.id
+    opponent = self.owner.id
+    owner = self.owner.id
+    if self.turn_id == owner 
+      update_attributes(turn_id: opponent)
     else
-      self.turn = owner.id
+      self.update_attributes(turn_id: owner)
     end
   end
 

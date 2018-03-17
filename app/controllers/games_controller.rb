@@ -28,9 +28,8 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     if @game.owner != current_user.id
       opponent = current_user
-      owner = @game.owner.id.to_i
-      @game.update_attribute(:opponent, current_user)
-      @game.update_attribute(:turn, owner)
+      set_turn = @game.owner.id.to_i
+      @game.update_attributes(opponent: current_user, turn_id: set_turn)
       @game.populate_game!
       @game.save
       redirect_to game_path(@game)
@@ -42,7 +41,7 @@ class GamesController < ApplicationController
 private
 
   def game_params
-    params.require(:game).permit(:name, :owner, :opponent, :game_id, :turn)
+    params.require(:game).permit(:name, :owner, :opponent, :game_id, :turn_id)
   end
 
 end

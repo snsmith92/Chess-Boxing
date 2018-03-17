@@ -3,10 +3,18 @@
 
 <%= link_to "New Game?", new_game_path %>
 
-<% if @game.turn == current_user %>
+<% if @game.turn_id == current_user.id %>
   <h4> It's your turn! </h4>
 <% else %>
   <h4> Waiting for the other player's move... </h4>
+<% end %>
+
+<% if @game.owner == current_user %>
+  <h6> You are the white player. </h6>
+<% elsif @game.opponent == current_user %>
+  <h6> You are the black player. </h6>
+<% else %>
+  <h6> You are not a player. </h6>
 <% end %>
 
 <div class = "container">
@@ -33,7 +41,7 @@
 </div>
 
 
-<% if @game.turn == current_user.id %>
+<% if @game.turn_id == current_user.id %>
   <script>
     $(function() {
       $(".draggable").draggable({
@@ -60,10 +68,6 @@
             url: '/pieces/' + ui.draggable.data('piece-id') +'/',
             dataType: 'json',
             data: { piece: {position_x: target_x, position_y: target_y} },
-            success: function() {
-              alert("This piece has been dropped on " + targetId + "!");
-              // if a move is  valid it will say where it dropped
-            },
             error: function() {
               location.reload(true);
             // if a move is not valid it will refresh the page

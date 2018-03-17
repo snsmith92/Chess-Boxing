@@ -16,11 +16,6 @@ class PiecesController < ApplicationController
     position_x = params[:piece][:position_x].to_i
     position_y = params[:piece][:position_y].to_i
     @piece.move_to!(position_x, position_y)
-    if @piece.move_to!(position_x, position_y) == true 
-      @game.update_turn
-    else 
-      flash[:alert] = "This move is not allowed!"
-    end 
     redirect_to pieces_path(@piece)
   end
 
