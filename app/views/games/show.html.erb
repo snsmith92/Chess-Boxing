@@ -3,7 +3,12 @@
 
 <%= link_to "New Game?", new_game_path %>
 
-<%= @game.turn %>
+<% if @game.turn == current_user %>
+  <h4> It's your turn! </h4>
+<% else %>
+  <h4> Waiting for the other player's move... </h4>
+<% end %>
+
 <div class = "container">
   <table class = "chessboard" cellpadding="0" cellspacing="0">
     <% 7.downto(0) do |row| %>
@@ -28,43 +33,46 @@
 </div>
 
 
+<% if @game.turn == current_user.id %>
+  <script>
+    $(function() {
+      $(".draggable").draggable({
+        containment: "table",
+        snap: ".droppable",
+        snapMode: "inner"
+      });
 
-<script>
+      $(".droppable").droppable({
+        drop: function( event, ui ){
+          var initialId = ui.draggable.prop('id');
+          var initial_x = initialId.substring(5, 6);
+          var initial_y = initialId.substring(7);
+          var targetId = event.target.id;
+          var target_x = targetId.substring(3, 4);
+          var target_y = targetId.substring(5);
+          var newId = "piece" + target_x + "_" + target_y; 
+          $(targetId).append(ui.draggable);
+          $(ui.draggable).attr("id", newId);
 
-  $(function() {
-    $(".draggable").draggable({
-      containment: "table",
-      snap: ".droppable",
-      snapMode: "inner"
+
+          $.ajax({
+            type: 'PUT',
+            url: '/pieces/' + ui.draggable.data('piece-id') +'/',
+            dataType: 'json',
+            data: { piece: {position_x: target_x, position_y: target_y} },
+            success: function() {
+              alert("This piece has been dropped on " + targetId + "!");
+              // if a move is  valid it will say where it dropped
+            },
+            error: function() {
+              location.reload(true);
+            // if a move is not valid it will refresh the page
+            }
+          });
+
+          
+        }
+      });
     });
-
-    $(".droppable").droppable({
-      drop: function( event, ui ){
-        var initialId = ui.draggable.prop('id');
-        var initial_x = initialId.substring(5, 6);
-        var initial_y = initialId.substring(7);
-        var targetId = event.target.id;
-        var target_x = targetId.substring(3, 4);
-        var target_y = targetId.substring(5);
-        var newId = "piece" + target_x + "_" + target_y; 
-        $(targetId).append(ui.draggable);
-        $(ui.draggable).attr("id", newId);
-
-
-        $.ajax({
-          type: 'PUT',
-          url: '/pieces/' + ui.draggable.data('piece-id') +'/',
-          dataType: 'json',
-          data: { piece: {position_x: target_x, position_y: target_y} },
-          error: function() {
-            location.reload(true);
-          // if a move is not valid it will refresh the page
-          }
-        });
-
-        alert("This piece has been dropped on " + targetId + "!");
-      }
-    });
-  });
-
-</script> 
+  </script> 
+<% end %>

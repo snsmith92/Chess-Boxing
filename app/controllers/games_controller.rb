@@ -27,7 +27,11 @@ class GamesController < ApplicationController
   def update
     @game = Game.find(params[:id])
     if @game.owner != current_user.id
+      opponent = current_user
+      owner = @game.owner.id.to_i
       @game.update_attribute(:opponent, current_user)
+      @game.update_attribute(:turn, owner)
+      @game.populate_game!
       @game.save
       redirect_to game_path(@game)
     else

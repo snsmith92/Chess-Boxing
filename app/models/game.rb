@@ -1,7 +1,6 @@
 class Game < ApplicationRecord
-  attr_accessor :owner_id, :opponent_id
-  after_create :populate_game!
-  # after_create  :set_turn
+  attr_accessor :owner_id, :opponent_id, :turn
+  # after_update :populate_game!
 
   belongs_to :owner, class_name: 'User'
   belongs_to :opponent, class_name: 'User', optional: true
@@ -73,24 +72,23 @@ class Game < ApplicationRecord
     end
     return false 
   end 
-  
+
   def is_occupied?(destination_x, destination_y)
     Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
   end
 
+  def set_turn!
+    turn_id = self.owner.id.to_i
+    self.update_attribute(turn: turn_id)
+  end
 
-  def set_turn
-    self.turn == self.owner
-  end 
-
-
-  def update_turn
-    if self.turn == self.owner
-      update_attributes(turn: self.opponent)
-    else self.turn == self.opponent
-      update_attributes(turn: self.owner)
-    end 
-  end 
+  def update_turn!
+    if self.turn == owner.id
+      self.turn = opponent.id
+    else
+      self.turn = owner.id
+    end
+  end
 
   private
 
