@@ -53,15 +53,27 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to redirect_to new_user_session_path
     end
 
-    it "should successfully update attributes for opponent and go to game show page" do
+    it "should successfully update attributes for opponent" do
       user_1 = FactoryBot.create(:user)
       user_2 = FactoryBot.create(:user)
       sign_in user_2
 
       game = FactoryBot.create(:game, owner: user_1, opponent: nil)
       patch :update, params: { id: game.id, game: { owner: user_1, opponent: user_2 } }
-      expect(response).to redirect_to game_path(game)
+      
     end
+
+    it "should successfully populate game and go to show page" do
+      user_1 = FactoryBot.create(:user)
+      user_2 = FactoryBot.create(:user)
+      sign_in user_2
+
+      game = FactoryBot.create(:game, owner: user_1, opponent: nil)
+      patch :update, params: { id: game.id, game: { owner: user_1, opponent: user_2 } }
+      
+      expect(game.pieces.count).to eq(32)
+      expect(response).to redirect_to game_path(game)
+    end 
   end
 
   describe "games#show action" do

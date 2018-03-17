@@ -36,9 +36,9 @@ class Game < ApplicationRecord
   end
 
   def in_check?
-    if self.pieces.find_by(type: 'King', color: 'black') != nil
+    if pieces.find_by(type: 'King', color: 'black') != nil
       black_in_check? 
-    elsif self.pieces.find_by(type: 'King', color: 'white') != nil
+    elsif pieces.find_by(type: 'King', color: 'white') != nil
       white_in_check?
     else
       return false
