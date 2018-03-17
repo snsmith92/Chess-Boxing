@@ -27,18 +27,21 @@ class GamesController < ApplicationController
   def update
     @game = Game.find(params[:id])
     if @game.owner != current_user.id
-      @game.update_attribute(:opponent, current_user)
+      opponent = current_user
+      set_turn = @game.owner.id.to_i
+      @game.update_attributes(opponent: current_user, turn_id: set_turn)
+      @game.populate_game!
       @game.save
       redirect_to game_path(@game)
     else
-      render :new, status: :unprocessable_entity
+      render :index, status: :unprocessable_entity
     end
   end
 
 private
 
   def game_params
-    params.require(:game).permit(:name, :owner, :opponent)
+    params.require(:game).permit(:name, :owner, :opponent, :game_id, :turn_id)
   end
 
 end
