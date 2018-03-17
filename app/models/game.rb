@@ -37,4 +37,12 @@ class Game < ApplicationRecord
       Pawn.create(type: "Pawn", game_id: self.id, position_x: n, position_y: 6, color: "black", captured: false)
     end
   end
+
+  def valid_castle?
+    if pieces.find_by(type: 'King', color: 'black') != nil
+      valid_castle_black?
+    elsif pieces.find_by(type: 'King', color: 'white') != nil
+      valid_castle_white?
+    end
+  end
 end
