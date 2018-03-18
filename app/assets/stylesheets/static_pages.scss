@@ -1,3 +1,13 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Catamaran');
+@import "font-awesome";
+
+body {
+  background: image_url("bg-pattern.png"), #7b4397;
+  background: image_url("bg-pattern.png"), -webkit-linear-gradient(to left, #7b4397, #dc2430);
+  background: image_url("bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+}

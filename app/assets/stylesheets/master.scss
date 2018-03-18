@@ -1,4 +1,54 @@
 @import "bootstrap";
+@import "font-awesome";
+@import url('https://fonts.googleapis.com/css?family=Catamaran');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+.home-page{
+  background: image_url("bg-pattern.png"), #7b4397;
+  background: image_url("bg-pattern.png"), -webkit-linear-gradient(to left, #7b4397, #dc24308c);
+  background: image_url("bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+}
+
+.tagline h1 {
+  font-family: 'Catamaran', sans-serif;
+  font-size: 50px;
+  font-weight: 200;
+  letter-spacing: 1px;
+}
+
+.tagline {
+  margin-left: 60px;
+  margin-top: 60px;
+}
+
+.navbar-brand {
+  margin-left: 4rem;
+  padding-top: 30px;
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+}
+
+.btn {
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.btn.btn-primary{
+  border-radius: 300px;
+  padding: 15px 20px 15px 20px;
+  color:black;
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid;
+  border-color: black;
+}
+
+.hero {
+  min-height: 650px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: url('homepage.jpg') no-repeat center center fixed;
+}
 
 table.chessboard  {
   display:block;
