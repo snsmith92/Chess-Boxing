@@ -78,9 +78,9 @@ class Game < ApplicationRecord
 
   def valid_castle?
     if pieces.find_by(type: 'King', color: 'black') != nil
-      valid_castle_black?
+      castle_black!
     elsif pieces.find_by(type: 'King', color: 'white') != nil
-      valid_castle_white?
+      castle_white!
     end
   end
   
