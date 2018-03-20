@@ -1,41 +1,85 @@
 @import "bootstrap";
 @import "font-awesome";
-@import url('https://fonts.googleapis.com/css?family=Catamaran');
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Catamaran|Comfortaa|Lato');
 
-.home-page{
-  background: image_url("bg-pattern.png"), #7b4397;
-  background: image_url("bg-pattern.png"), -webkit-linear-gradient(to left, #7b4397, #dc24308c);
-  background: image_url("bg-pattern.png"), linear-gradient(to left, #7b4397, #dc2430);
+// GENERAL
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Catamaran', sans-serif;
+}
+
+// HOMEPAGE AND NAVBAR
+.hero {
+  min-height: 600px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: url('homepage.jpg') no-repeat center center fixed;
 }
 
 .tagline h1 {
   font-family: 'Catamaran', sans-serif;
   font-size: 50px;
   font-weight: 200;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
 .tagline {
   margin-left: 60px;
-  margin-top: 60px;
+  margin-top: 100px;
 }
 
 .navbar-brand {
-  margin-left: 4rem;
-  padding-top: 30px;
-  font-family: 'Lato', sans-serif;
+  margin-left: 30px;
+  font-family: 'Comfortaa', cursive;
   text-transform: uppercase;
+  font-size: 20px;
 }
 
+.navbar-nav {
+  margin-right: 30px;
+}
+
+.bg-light{
+  background-color: rgba(221, 218, 212, 0.6);
+}
+
+.nav-item {
+  margin-right: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: black;
+}
+
+img.text-bottom{
+  vertical-align: text-bottom;
+}
+
+// BUTTONS
 .btn {
   font-family: 'Lato', sans-serif;
   letter-spacing: 2px;
   text-transform: uppercase;
 }
 
+.btn.btn-info{
+  border-radius: 0px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
+  border: 1px solid;
+  border-color: black;
+}
+
+.btn.btn-info:hover{
+  border-radius: 0px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+  border: 1px solid;
+  border-color: black;
+}
+
 .btn.btn-primary{
-  border-radius: 300px;
+  border-radius: 0px;
   padding: 15px 20px 15px 20px;
   color:black;
   background-color: rgba(255, 255, 255, 0);
@@ -43,13 +87,34 @@
   border-color: black;
 }
 
-.hero {
-  min-height: 650px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background: url('homepage.jpg') no-repeat center center fixed;
+.btn.btn-primary:hover {
+  border-radius: 0px;
+  padding: 15px 20px 15px 20px;
+  color:black;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid;
+  border-color: black;
 }
 
+.btn.btn-success{
+  border-radius: 0px;
+  padding: 15px 20px 15px 20px;
+  color:black;
+  background-color: rgba(90, 54, 6, 0.568);
+  border: 1px solid;
+  border-color: black;
+}
+
+.btn.btn-success:hover{
+  border-radius: 0px;
+  padding: 15px 20px 15px 20px;
+  color:white;
+  background-color: rgba(90, 54, 6, 0.8);
+  border: 1px solid;
+  border-color: black;
+}
+
+// CHESS BOARD 
 table.chessboard  {
   display:block;
   padding:0px;
@@ -67,11 +132,11 @@ td {
 }
 
 tbody {
-  border: 2px solid red; 
+  border: 2px solid black; 
 }
 
 #pos0_0, #pos0_2, #pos0_4, #pos0_6, #pos1_1,#pos1_3, #pos1_5, #pos1_7, #pos2_0, #pos2_2, #pos2_4, #pos2_6, #pos3_1, #pos3_3, #pos3_5, #pos3_7, #pos4_0, #pos4_2, #pos4_4, #pos4_6, #pos6_0, #pos6_2, #pos6_4, #pos6_6,#pos5_1, #pos5_3, #pos5_5, #pos5_7, #pos7_1, #pos7_3, #pos7_5, #pos7_7 {
-  background-color:black;
+  background-color:rgba(90, 54, 6, 0.8);
 }
 
 #pos0_1, #pos0_3, #pos0_5, #pos0_7, #pos1_0, #pos1_2, #pos1_4, #pos1_6, #pos2_1, #pos2_3, #pos2_5, #pos2_7, #pos3_0, #pos3_2, #pos3_4, #pos3_6, #pos4_1, #pos4_3, #pos4_5, #pos4_7, #pos5_0, #pos5_2, #pos5_4, #pos5_6,#pos6_1, #pos6_3, #pos6_5, #pos6_7, #pos7_0, #pos7_2, #pos7_4, #pos7_6 {
@@ -80,4 +145,30 @@ tbody {
 
 .draggable {
   
+}
+
+// MODAL
+.modal-title{
+  font-family: 'Comfortaa', cursive;
+  text-align: center;
+}
+
+.modal-body input {
+  width: 100%;
+  min-height: 20px;
+  font-size: 18px;
+}
+
+.modal-body {
+  font-family: "Lato", sans-serif;
+}
+
+input::placeholder{
+  color: grey;
+  font-family: "Lato", sans-serif;
+}
+
+// GAME SHOW PAGE
+.game-title {
+  text-align: center;
 }

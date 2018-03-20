@@ -1,43 +1,51 @@
 <br />
-<h1>Let's play!</h1>
+<h1 class="game-title">Game No. <%=@game.id%></h1>
 
 <%= link_to "New Game?", new_game_path %>
 
-<% if @game.turn_id == current_user.id %>
-  <h4> It's your turn! </h4>
-<% else %>
-  <h4> Waiting for the other player's move... </h4>
-<% end %>
-
-<% if @game.owner == current_user %>
-  <h6> You are the white player. </h6>
-<% elsif @game.opponent == current_user %>
-  <h6> You are the black player. </h6>
-<% else %>
-  <h6> You are not a player. </h6>
-<% end %>
 
 <div class = "container">
-  <table class = "chessboard" cellpadding="0" cellspacing="0">
-    <% 7.downto(0) do |row| %>
-      <tr> 
-        <% 0.upto(7) do |column| %>
-          <td id = 'pos<%= "#{column}_#{row}"%>' class = 'droppable'>    
-            <% @pieces.each do |piece|%>
-              <div data-piece-id ="<%= piece.id %>">
-              <% if piece.position_y.to_i == row && piece.position_x.to_i == column %>
-                <%= link_to piece_path(piece) do %>
-                  <%= image_tag(piece.show_image, class: "img-fluid draggable", 'data-piece-id': piece.id ,id:"piece#{column}_#{row}," ) %>
+  <div class="row">
+    <div class= "col-md-6">
+      <table class = "chessboard" cellpadding="0" cellspacing="0">
+        <% 7.downto(0) do |row| %>
+          <tr> 
+            <% 0.upto(7) do |column| %>
+              <td id = 'pos<%= "#{column}_#{row}"%>' class = 'droppable'>    
+                <% @pieces.each do |piece|%>
+                  <div data-piece-id ="<%= piece.id %>">
+                  <% if piece.position_y.to_i == row && piece.position_x.to_i == column %>
+                    <%= link_to piece_path(piece) do %>
+                      <%= image_tag(piece.show_image, class: "img-fluid draggable", 'data-piece-id': piece.id ,id:"piece#{column}_#{row}," ) %>
+                    <% end %>
+                  <% end %>
+                  </div>
                 <% end %>
-              <% end %>
-              </div>
+            </td >          
             <% end %>
-         </td >          
+          </tr>
         <% end %>
-      </tr>
-    <% end %>
-    <br class="clr">
-  </table>
+        <br class="clr">
+      </table>
+    </div >
+    <div class = "col-md-4">
+      <div class = "game-details">
+        <br />
+        <% if @game.turn_id == current_user.id %>
+          <h4> It's your turn! </h4>
+        <% else %>
+          <h4> Waiting for the other player's move... </h4>
+        <% end %>
+        <% if @game.owner == current_user %>
+          <h6> You are the <strong>white</strong> player. </h6>
+        <% elsif @game.opponent == current_user %>
+          <h6> You are the <strong>black</strong> player. </h6>
+        <% else %>
+          <h6> You are not a player. </h6>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
 
