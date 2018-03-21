@@ -9,12 +9,12 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-toggleable-sm navbar-light bg-light">
+    <nav class="navbar navbar-toggleable-sm navbar-light fixed-top bg-dark">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <%= link_to root_path do %>
-      <span class = "navbar-brand"><img class="text-bottom" src="https://png.icons8.com/ios/25/000000/king-filled.png">Chess Boxing</span>
+      <span class = "navbar-brand">Chess Boxing</span>
     <% end %>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ml-auto">
@@ -132,6 +132,14 @@
     <% if alert.present? %>
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
+
     <%= yield %>
+
+    <div id="footer">
+      <%= link_to 'https://github.com/Da-Chess-Boxers/Chess-Boxing' do %>
+        <span class="fa fa-github fa-2x social-button pull-right" aria-hidden="true"></span>
+      <% end %>
+    </div>
   </body>
 </html>
+

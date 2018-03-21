@@ -1,15 +1,179 @@
-<div class = "hero">
-  <br/>
-  <br />
-  <div class = "tagline">
-    <h1>We're here to play.</h1>
-    <br />
-    <%= link_to "Get Started", new_user_session_path, class: 'btn btn-primary'%>
-    <%= link_to "Learn More", '#', class: 'btn btn-success' %>
-    <i class="fas fa-chess"></i>
-  </div>
+<div class = "container-fluid">
+  <div class = "row">
+    <div class = "tagline col-md-4">
+      <h1>We're here to play.</h1>
+      <br />
+      <%= link_to "Get Started", new_user_session_path, class: 'btn btn-primary', data: {toggle: 'modal', target:'#signUpModal'}%>
+      <%= link_to "Learn More", '#', class: 'btn btn-success' %>
+    </div>
+    <div class = "hero col-md-8">
+
+    </div>
+  </div>   
 </div>
 
-<div class = "about">
-  <h1>About Chess-Boxing</h1>
+<div class = "container-fluid">
+  <div class = "row">
+    <div class = "about col-md-12">
+      <h1 class = "text-center">About Chess-Boxing</h1>
+      <br />
+      <p>Chess-Boxing is an open source chess game application built using Ruby on Rails. Using test-driven development approaches and and red-green-refactor cycles, and tons of fun along the way, we build this application as a collaborative team. </p>
+      <p class = "text-center">After all, we're here to play.</p>
+    </div>
+  </div>
+  <div class = "row"> 
+    <div class = "process-title col-md-12">
+      <h1 class = "text-center">Snapshots of the Process</h1>
+    </div>
+  </div>
+  <div class = "row">
+    <div class = "code-description orange col-md-4">
+      <h2>Wireframing</h2>
+      <br/>
+      <p>We used Balsamiq for fast wireframing, to develop important pages in our user experience, including leaderboards and the game page.</p>
+    </div>
+    <div class = "wireframe col-md-8">
+    </div>
+  </div> 
+  <div class = "row section">
+     <div class = "col-md-8" style="background: #272822; overflow:auto;width:100%;padding:20px;"><pre style="height: 275; width: 920px; margin: 0; line-height: 125%"><span style="color: #66d9ef">class</span> <span style="color: #a6e22e">Rook</span> <span style="color: #f92672">&lt;</span> <span style="color: #66d9ef">Piece</span>
+      <span style="color: #f8f8f2">scope</span> <span style="color: #e6db74">:piece</span><span style="color: #f8f8f2">,</span> <span style="color: #f92672">-&gt;</span> <span style="color: #f8f8f2">{where(</span><span style="color: #e6db74">type</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&#39;Rook&#39;</span><span style="color: #f8f8f2">)}</span>
+
+      <span style="color: #66d9ef">def</span> <span style="color: #a6e22e">valid_move?</span><span style="color: #f8f8f2">(position_x,</span> <span style="color: #f8f8f2">position_y)</span>
+        <span style="color: #f8f8f2">x_destination</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">position_x</span> 
+        <span style="color: #f8f8f2">y_destination</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">position_y</span>
+
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">position_x</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">to_i</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">x_destination</span> <span style="color: #75715e"># vertical move</span>
+          <span style="color: #f8f8f2">valid_move_vertical?(position_x,</span> <span style="color: #f8f8f2">position_y)</span>
+        <span style="color: #66d9ef">elsif</span> <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">position_y</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">to_i</span> <span style="color: #f92672">==</span> <span style="color: #f8f8f2">y_destination</span> <span style="color: #75715e"># horizontal move</span>
+          <span style="color: #f8f8f2">valid_move_horizontal?(position_x,</span> <span style="color: #f8f8f2">position_y)</span>
+        <span style="color: #66d9ef">else</span> 
+          <span style="color: #66d9ef">return</span> <span style="color: #66d9ef">false</span>
+        <span style="color: #66d9ef">end</span> 
+      <span style="color: #66d9ef">end</span> 
+    <span style="color: #66d9ef">end</span>
+    </pre></div>
+    <div class = "code-description blue col-md-4">
+      <h2>Valid Move Methods</h2>
+      <br/>
+      <p>We used single-table inheritance to create model relationships between different types of chess pieces. We created methods to detect valid moves for each invididual type of piece.</p>
+    </div>
+  </div>
+  <div class = "row section">
+    <div class = "code-description yellow col-md-4">
+      <h2>Checkmate!</h2>
+      <br/>
+      <p>We used single-table inheritance to create model relationships between different types of chess pieces. We created methods to detect valid moves for each invididual type of piece.</p>
+    </div>
+    <div class = "col-md-8" style="background: #272822; overflow:auto; width: 100%; padding:20px;"><pre style="height: 275; width: 920px; margin: 0; line-height: 125%"><span style="color: #66d9ef">def</span> <span style="color: #a6e22e">checkmate?</span>
+      <span style="color: #75715e">#in_check? must first return true</span>
+      <span style="color: #66d9ef">return</span> <span style="color: #66d9ef">false</span> <span style="color: #66d9ef">if</span> <span style="color: #f92672">!</span> <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">in_check?</span>
+      <span style="color: #75715e">#in_check? must return true for every possible move the king could make from the starting position</span>
+      <span style="color: #f8f8f2">king</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">pieces</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">find_by(</span><span style="color: #e6db74">type</span><span style="color: #f8f8f2">:</span> <span style="color: #e6db74">&#39;King&#39;</span><span style="color: #f8f8f2">)</span>
+      <span style="color: #f8f8f2">king_x</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">king</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">position_x</span>
+      <span style="color: #f8f8f2">king_y</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">king</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">position_y</span>
+
+      <span style="color: #f8f8f2">available_king_moves</span> <span style="color: #f92672">=</span> <span style="color: #f92672">[[</span><span style="color: #f8f8f2">king_x</span> <span style="color: #f92672">+</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">king_y</span><span style="color: #f92672">]</span><span style="color: #f8f8f2">,</span> <span style="color: #f92672">[</span><span style="color: #f8f8f2">king_x</span> <span style="color: #f92672">-</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">king_y</span><span style="color: #f92672">]</span><span style="color: #f8f8f2">,</span> <span style="color: #f92672">[</span><span style="color: #f8f8f2">king_x,</span> <span style="color: #f8f8f2">king_y</span> <span style="color: #f92672">+</span> <span style="color: #ae81ff">1</span><span style="color: #f92672">]</span><span style="color: #f8f8f2">,</span> <span style="color: #f92672">[</span><span style="color: #f8f8f2">king_x,</span> <span style="color: #f8f8f2">king_y</span> <span style="color: #f92672">-</span> <span style="color: #ae81ff">1</span><span style="color: #f92672">]</span><span style="color: #f8f8f2">,</span>
+      <span style="color: #f92672">[</span><span style="color: #f8f8f2">king_x</span> <span style="color: #f92672">+</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">king_y</span> <span style="color: #f92672">+</span> <span style="color: #ae81ff">1</span><span style="color: #f92672">]</span><span style="color: #f8f8f2">,</span> <span style="color: #f92672">[</span><span style="color: #f8f8f2">king_x</span> <span style="color: #f92672">-</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">king_y</span> <span style="color: #f92672">-</span> <span style="color: #ae81ff">1</span><span style="color: #f92672">]</span><span style="color: #f8f8f2">,</span> <span style="color: #f92672">[</span><span style="color: #f8f8f2">king_x</span> <span style="color: #f92672">+</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">king_y</span> <span style="color: #f92672">-</span> <span style="color: #ae81ff">1</span><span style="color: #f92672">]</span><span style="color: #f8f8f2">,</span> <span style="color: #f92672">[</span><span style="color: #f8f8f2">king_x</span> <span style="color: #f92672">-</span> <span style="color: #ae81ff">1</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">king_y</span> <span style="color: #f92672">+</span> <span style="color: #ae81ff">1</span><span style="color: #f92672">]]</span>
+      <span style="color: #f8f8f2">available_king_moves</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">each</span> <span style="color: #f8f8f2">{</span> <span style="color: #f92672">|</span><span style="color: #f8f8f2">move</span><span style="color: #f92672">|</span>
+        <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">king</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">valid_move?(move</span><span style="color: #f92672">[</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">move</span><span style="color: #f92672">[</span><span style="color: #ae81ff">1</span><span style="color: #f92672">]</span><span style="color: #f8f8f2">)</span>
+          <span style="color: #f8f8f2">king</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">move_to!(move</span><span style="color: #f92672">[</span><span style="color: #ae81ff">0</span><span style="color: #f92672">]</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">move</span><span style="color: #f92672">[</span><span style="color: #ae81ff">1</span><span style="color: #f92672">]</span><span style="color: #f8f8f2">)</span>
+          <span style="color: #66d9ef">if</span> <span style="color: #f92672">!</span> <span style="color: #f8f8f2">self</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">in_check?</span>
+            <span style="color: #f8f8f2">king</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">update_attributes(</span><span style="color: #e6db74">:position_x</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">king_x,</span> <span style="color: #e6db74">:position_y</span> <span style="color: #f92672">=&gt;</span> <span style="color: #f8f8f2">king_y)</span>
+            <span style="color: #66d9ef">return</span> <span style="color: #66d9ef">false</span>
+          <span style="color: #66d9ef">else</span> 
+            <span style="color: #66d9ef">return</span> <span style="color: #66d9ef">true</span>
+          <span style="color: #66d9ef">end</span>
+        <span style="color: #66d9ef">end</span>
+      <span style="color: #f8f8f2">}</span>
+    <span style="color: #66d9ef">end</span>
+    </pre></div>
+  </div> 
+  <div class = "row section">
+    <div class = "col-md-8" style="background: #272822; overflow:auto;width:auto;padding:20px;"><pre style="margin: 0; line-height: 125%">  <span style="color: #f92672">&lt;</span><span style="color: #a6e22e">script</span><span style="color: #f92672">&gt;</span>
+      <span style="color: #a6e22e">$</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+        <span style="color: #a6e22e">$</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;.draggable&quot;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">draggable</span><span style="color: #f8f8f2">({</span>
+          <span style="color: #a6e22e">containment</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;table&quot;</span><span style="color: #f8f8f2">,</span>
+          <span style="color: #a6e22e">snap</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;.droppable&quot;</span><span style="color: #f8f8f2">,</span>
+          <span style="color: #a6e22e">snapMode</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&quot;inner&quot;</span>
+        <span style="color: #f8f8f2">});</span>
+        <span style="color: #a6e22e">$</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;.droppable&quot;</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">droppable</span><span style="color: #f8f8f2">({</span>
+          <span style="color: #a6e22e">drop</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">(</span> <span style="color: #a6e22e">event</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">ui</span> <span style="color: #f8f8f2">){</span>
+            <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">targetId</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">event</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">target</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">id</span><span style="color: #f8f8f2">;</span>
+            <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">target_x</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">targetId</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">substring</span><span style="color: #f8f8f2">(</span><span style="color: #ae81ff">3</span><span style="color: #f8f8f2">,</span> <span style="color: #ae81ff">4</span><span style="color: #f8f8f2">);</span>
+            <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">target_y</span> <span style="color: #f92672">=</span> <span style="color: #a6e22e">targetId</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">substring</span><span style="color: #f8f8f2">(</span><span style="color: #ae81ff">5</span><span style="color: #f8f8f2">);</span>
+            <span style="color: #66d9ef">var</span> <span style="color: #a6e22e">newId</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;piece&quot;</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">target_x</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot;_&quot;</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">target_y</span><span style="color: #f8f8f2">;</span> 
+            <span style="color: #a6e22e">$</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">targetId</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">append</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">ui</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">draggable</span><span style="color: #f8f8f2">);</span>
+            <span style="color: #a6e22e">$</span><span style="color: #f8f8f2">(</span><span style="color: #a6e22e">ui</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">draggable</span><span style="color: #f8f8f2">).</span><span style="color: #a6e22e">attr</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&quot;id&quot;</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">newId</span><span style="color: #f8f8f2">);</span>
+            <span style="color: #a6e22e">$</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">ajax</span><span style="color: #f8f8f2">({</span>
+              <span style="color: #a6e22e">type</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&#39;PUT&#39;</span><span style="color: #f8f8f2">,</span>
+              <span style="color: #a6e22e">url</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&#39;/pieces/&#39;</span> <span style="color: #f92672">+</span> <span style="color: #a6e22e">ui</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">draggable</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">data</span><span style="color: #f8f8f2">(</span><span style="color: #e6db74">&#39;piece-id&#39;</span><span style="color: #f8f8f2">)</span> <span style="color: #f92672">+</span><span style="color: #e6db74">&#39;/&#39;</span><span style="color: #f8f8f2">,</span>
+              <span style="color: #a6e22e">dataType</span><span style="color: #f92672">:</span> <span style="color: #e6db74">&#39;json&#39;</span><span style="color: #f8f8f2">,</span>
+              <span style="color: #a6e22e">data</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span> <span style="color: #a6e22e">piece</span><span style="color: #f92672">:</span> <span style="color: #f8f8f2">{</span><span style="color: #a6e22e">position_x</span><span style="color: #f92672">:</span> <span style="color: #a6e22e">target_x</span><span style="color: #f8f8f2">,</span> <span style="color: #a6e22e">position_y</span><span style="color: #f92672">:</span> <span style="color: #a6e22e">target_y</span><span style="color: #f8f8f2">}</span> <span style="color: #f8f8f2">},</span>
+              <span style="color: #a6e22e">error</span><span style="color: #f92672">:</span> <span style="color: #66d9ef">function</span><span style="color: #f8f8f2">()</span> <span style="color: #f8f8f2">{</span>
+                <span style="color: #a6e22e">location</span><span style="color: #f8f8f2">.</span><span style="color: #a6e22e">reload</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">true</span><span style="color: #f8f8f2">);</span>
+              <span style="color: #75715e">// if a move is not valid it will refresh the page</span>
+              <span style="color: #f8f8f2">}</span>
+            <span style="color: #f8f8f2">});</span>
+          <span style="color: #f8f8f2">}</span>
+        <span style="color: #f8f8f2">});</span>
+      <span style="color: #f8f8f2">});</span>
+    <span style="color: #f92672">&lt;</span><span style="color: #a6e22e; ">/script<span style="color: #f92672">&gt;</span></span>
+    </pre></div>
+    <div class = "code-description red col-md-4">
+      <h2>Move_To! using jQuery</h2>
+      <br/>
+      <p>We used jQuery and Ajax requests to facilitate easy drag-and-drop of pieces. The move_to! method, called on the piece#update action in the piece controller, ensures that only permissible moves are allowed.</p>
+    </div>
+   </div>
+   <div class = "row"> 
+      <div class = "tools-title col-md-12">
+        <h1 class = "text-center">Our Tools</h1>
+        <%= image_tag 'tools.png', class: "text-center" %>
+      </div>
+    </div>
+    <div class = "row yellow">
+      <div class = "tools-title col-md-12">
+        <h1 class = "text-center">Team</h1>
+      </div>
+    </div>
+    <div class = "row yellow">
+      <div class = "team text-center col-md-3">
+       <h6 class = "team-name"> Sherzel Smith</h6>
+      </div>
+      <div class = "team text-center col-md-3">
+        <h6 class = "team-name">Iann Singer</h6>
+      </div>
+      <div class = "team text-center col-md-3">
+        <h6 class = "team-name"> Gregorio Vincent</h6>
+        <p class = "team-detail">Gregorio  is a Cornell Grad and NYC native who’s spent the last 3 years working in Silicon Valley. He’s worn various hats at companies such as Handy, Dot &amp; Bo, Uber, and Recommind. He’s currently a Tier 1 Product Support Specialist at Turnitin and now looking for opportunites as a software engineer.</p>
+      </div>
+      <div class = "team text-center col-md-3">
+        <h6 class = "team-name">Drew Moore</h6>
+      </div>
+    </div>
 </div>
+
+<script>
+  $(function() {
+    $(window).ready(function(){
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+          $('.bg-dark').addClass('changeNavbarColor')
+        }
+        if ($(this).scrollTop() < 50) {
+          $('.bg-dark').removeClass('changeNavbarColor')
+        }
+      });
+    });
+  });
+
+  $(document).ready( function() {
+    $('.team-name').hover( function() {
+        $(this).find('.team-detail').fadeIn(300);
+    }, function() {
+        $(this).find('.team-detail').fadeOut(100);
+    });
+  });
+
+</script>
