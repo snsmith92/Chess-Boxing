@@ -4,7 +4,7 @@
       <h1>We're here to play.</h1>
       <br />
       <%= link_to "Get Started", new_user_session_path, class: 'btn btn-primary', data: {toggle: 'modal', target:'#signUpModal'}%>
-      <%= link_to "Learn More", '#', class: 'btn btn-success' %>
+      <%= link_to "Learn More", '#', class: 'btn btn-success', data: { target: '#about'} %>
     </div>
     <div class = "hero col-md-8">
 
@@ -15,9 +15,9 @@
 <div class = "container-fluid">
   <div class = "row">
     <div class = "about col-md-12">
-      <h1 class = "text-center">About Chess-Boxing</h1>
+      <h1 class = "text-center" id = "about">About Chess-Boxing</h1>
       <br />
-      <p>Chess-Boxing is an open source chess game application built using Ruby on Rails. Using test-driven development approaches and and red-green-refactor cycles, and tons of fun along the way, we build this application as a collaborative team. </p>
+      <p>Chess-Boxing is an open source chess game application built from scratch using Ruby on Rails. Using test-driven development approaches and and red-green-refactor cycles, and tons of fun along the way, we build this application as a collaborative team. </p>
       <p class = "text-center">After all, we're here to play.</p>
     </div>
   </div>

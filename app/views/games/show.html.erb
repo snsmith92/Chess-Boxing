@@ -1,8 +1,10 @@
 <br />
-<h1 class="game-title">Game No. <%=@game.id%></h1>
-
-<%= link_to "New Game?", new_game_path %>
-
+<br />
+<br />
+<style>
+  body {background-color: #ECECEC;}
+</style>
+<div class = "game-header"><h1 class="game-title">Game No. <%=@game.id%></h1></div>
 
 <div class = "container">
   <div class="row">
@@ -81,10 +83,23 @@
             // if a move is not valid it will refresh the page
             }
           });
-
-          
         }
       });
     });
   </script> 
 <% end %>
+
+<script>
+  $(function() {
+    $(window).ready(function(){
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 2) {
+          $('.bg-dark').addClass('changeNavbarColor')
+        }
+        if ($(this).scrollTop() < 50) {
+          $('.bg-dark').removeClass('changeNavbarColor')
+        }
+      });
+    });
+  });
+</script>
