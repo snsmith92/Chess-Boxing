@@ -97,6 +97,7 @@ class Game < ApplicationRecord
         end
       end
     }
+  end 
 
   def set_turn!
     turn_id = self.owner.id.to_i
