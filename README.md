@@ -1,24 +1,3 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Chess-Boxing is an open source chess game application built from scratch using Ruby on Rails. Using test-driven development approaches and and red-green-refactor cycles, and tons of fun along the way, we built this application as a collaborative team.

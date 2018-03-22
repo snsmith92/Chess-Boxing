@@ -58,8 +58,8 @@ RSpec.describe Piece, type: :model do
       king = King.create(color: "white", game_id: game.id, position_x: 0, position_y: 2)
       queen = Queen.create(color: "white", game_id: game.id, position_x: 0 , position_y: 3)
       rook = Rook.create(color: "black", game_id: game.id, position_x: 0 , position_y: 5)
-      queen.is_in_self_check?
-      expect(queen.is_in_self_check?).to eq(true)
+      queen.in_self_check?
+      expect(queen.in_self_check?).to eq(true)
     end
   end
 

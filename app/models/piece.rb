@@ -146,9 +146,9 @@ class Piece < ApplicationRecord
 
   def in_self_check?
     if color == "white"
-      game.white_in_check
+      game.white_in_check?
     elsif color == "black"
-      game.black_in_check
+      game.black_in_check?
     end
   end
 end
