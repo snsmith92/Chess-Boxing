@@ -63,7 +63,7 @@
     <div class = "code-description yellow col-md-4">
       <h2>Checkmate!</h2>
       <br/>
-      <p>We used single-table inheritance to create model relationships between different types of chess pieces. We created methods to detect valid moves for each invididual type of piece.</p>
+      <p>We developed a method within our game model, using valid_move? and in_check methods, to determine checkmate.</p>
     </div>
     <div class = "col-md-8" style="background: #272822; overflow:auto; width: 100%; padding:20px;"><pre style="height: 275; width: 920px; margin: 0; line-height: 125%"><span style="color: #66d9ef">def</span> <span style="color: #a6e22e">checkmate?</span>
       <span style="color: #75715e">#in_check? must first return true</span>
@@ -133,20 +133,28 @@
       </div>
     </div>
     <div class = "row yellow">
-      <div class = "tools-title col-md-12">
+      <div class = "team-title col-md-12">
         <h1 class = "text-center">Team</h1>
       </div>
     </div>
-    <div class = "row yellow">
+    <div class = "row yellow team-section">
       <div class = "team text-center col-md-3">
+        <%= image_tag 'sherzel.jpg', class: 'team-image' %>
+        <br />
+        <br />
        <h6 class = "team-name"> Sherzel Smith</h6>
+       <a href= "https://github.com/snsmith92"><i class="fab fa-github fa-2x" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href= "https://www.linkedin.com/in/sherzelsmith/"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a>
       </div>
       <div class = "team text-center col-md-3">
         <h6 class = "team-name">Iann Singer</h6>
+        
       </div>
       <div class = "team text-center col-md-3">
+        <%= image_tag 'gvincent.jpg', class: 'team-image' %>
+        <br />
+        <br />
         <h6 class = "team-name"> Gregorio Vincent</h6>
-        <p class = "team-detail">Gregorio  is a Cornell Grad and NYC native who’s spent the last 3 years working in Silicon Valley. He’s worn various hats at companies such as Handy, Dot &amp; Bo, Uber, and Recommind. He’s currently a Tier 1 Product Support Specialist at Turnitin and now looking for opportunites as a software engineer.</p>
+        <a href= "https://github.com/gvin10"><i class="fab fa-github fa-2x" aria-hidden="true"></i></a>&nbsp;&nbsp;<a href= "https://www.linkedin.com/in/gregorio-vincent/"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a>
       </div>
       <div class = "team text-center col-md-3">
         <h6 class = "team-name">Drew Moore</h6>

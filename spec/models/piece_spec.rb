@@ -50,19 +50,6 @@ RSpec.describe Piece, type: :model do
 
   end
 
-  describe "in_self_check" do
-    it "should check to see if moving a piece puts a player in self-check" do
-      user = FactoryBot.create(:user)
-      game = Game.create!(owner: user)
-
-      king = King.create(color: "white", game_id: game.id, position_x: 0, position_y: 2)
-      queen = Queen.create(color: "white", game_id: game.id, position_x: 0 , position_y: 3)
-      rook = Rook.create(color: "black", game_id: game.id, position_x: 0 , position_y: 5)
-      queen.in_self_check?
-      expect(queen.in_self_check?).to eq(true)
-    end
-  end
-
   context "move_to!" do
     it "should update attributes if a move is valid" do
 
