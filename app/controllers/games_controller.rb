@@ -19,7 +19,7 @@ class GamesController < ApplicationController
   def show
     @game = Game.find_by_id(params[:id])
     @pieces = Piece.where(game_id: @game)
-    return render text: "Not Found", status: :not_found if @game.blank? 
+    return render plain: "Not Found", status: :not_found if @game.blank? 
     redirect_to new_user_session_path if !user_signed_in?
   end
     
