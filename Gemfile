@@ -76,3 +76,6 @@ gem 'simple_form'
 gem 'ffi', '~> 1.9', '>= 1.9.18'
 
 gem 'jquery-ui-rails'
+
+gem "font-awesome-rails"
+gem 'font_awesome5_rails'

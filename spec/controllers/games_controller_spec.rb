@@ -26,7 +26,7 @@ RSpec.describe GamesController, type: :controller do
   describe "games#create action" do
     it "should require users to be logged in" do
       user = FactoryBot.create(:user)
-      post :create, param: { game: {owner: user}}
+      post :create, params: { game: {owner: user}}
       expect(response).to redirect_to new_user_session_path
     end
 

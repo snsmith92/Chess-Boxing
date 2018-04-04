@@ -1,13 +1,43 @@
-<h1> Join A Game </h1>
+<br />
+<br />
+<br />
+<style>
+  body {background-color: #ECECEC;}
+</style>
+<div class = "game-header"><h1 class="game-title">Join A Game!</h1></div>
+<br />
+<br />
+<div>
+  <div class = "container">
+    <div class = "row">
+      <% @games.each do |game| %>
+        <div class = "listed-game col-12 col-sm-4" id = 'game<%="#{game}"%>'>
+          <%= game.name %>
+          <%= link_to "Join", game_path(game), method: :put, class: "btn btn-success pull-right" %>
+        </div>
+      <% end %>
+  </div>
+</div>
 
-    <div>
-      <ul>
-        <% @games.each do |game| %>
-          <li>
-            <%= game.name %>
-            <%= link_to "Join", game_path(game), method: :put %>
-            <%= button_to "Join", game_path(game), method: "patch" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+
+<script>
+  $(function() {
+    $(window).ready(function(){
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 2) {
+          $('.bg-dark').addClass('changeNavbarColor')
+        }
+        if ($(this).scrollTop() < 50) {
+          $('.bg-dark').removeClass('changeNavbarColor')
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  var colors = ['#5BC0EB', '#FDE74C', '#9BC53D'];
+  var random_color = colors[Math.floor(Math.random() * colors.length)];
+
+  $('.listed-game').css('background-color', random_color);
+</script>

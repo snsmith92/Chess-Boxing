@@ -35,68 +35,52 @@ class Game < ApplicationRecord
     end
   end
 
-  def in_check?
-    if pieces.find_by(type: 'King', color: 'black') != nil
-      black_in_check? 
-    elsif pieces.find_by(type: 'King', color: 'white') != nil
-      white_in_check?
+  def in_check?(king)
+    in_check_pieces = []
+    if king.color == 'black'
+      color = 'white' 
     else
-      return false
+      color = 'black'
     end 
-  end 
 
-  def black_in_check?
-    black_king = self.pieces.find_by(type: 'King', color: 'black')
-    position_x = black_king.position_x
-    position_y = black_king.position_y
-
-    self.pieces.each do |piece|
-      if piece.valid_move?(position_x, position_y) && piece.color == 'white'
+    opponent_pieces = self.pieces.where(color: color, captured: false)
+    opponent_pieces.each do |piece|
+      if piece.valid_move?(king.position_x, king.position_y)
         return true
+        in_check_pieces << piece
       end 
-    end
-    return false 
-  end 
-
-
-  def white_in_check?
-    white_king = self.pieces.find_by(type: 'King', color: 'white')
-    position_x = white_king.position_x
-    position_y = white_king.position_y  
-
-    pieces.where(color: 'black', game_id: self).each do |piece|
-      if piece.valid_move?(position_x, position_y) == true # && piece.color == 'black' 
-        return true
-      end  
-    end
-    return false 
+    end 
+    return false
   end 
 
   def is_occupied?(destination_x, destination_y)
     Piece.find_by(game_id: self, position_x: destination_x, position_y: destination_y).present?
   end
 
-  def checkmate?
-    #in_check? must first return true
-    return false if ! self.in_check?
-    #in_check? must return true for every possible move the king could make from the starting position
-    king = self.pieces.find_by(type: 'King')
+
+  def checkmate?(user)
+    king = self.pieces.find_by(type: 'King', user: user, captured: false)
+
+    # game not in check if king is not in check
+    return false if !in_check?(king)
+
+    # if in check, check possible moves the king can make and see if it will still keep the king in check, or if it can evade capture.
     king_x = king.position_x
     king_y = king.position_y
-
     available_king_moves = [[king_x + 1, king_y], [king_x - 1, king_y], [king_x, king_y + 1], [king_x, king_y - 1],
-     [king_x + 1, king_y + 1], [king_x - 1, king_y - 1], [king_x + 1, king_y - 1], [king_x - 1, king_y + 1]]
+    [king_x + 1, king_y + 1], [king_x - 1, king_y - 1], [king_x + 1, king_y - 1], [king_x - 1, king_y + 1]]
+   
     available_king_moves.each { |move|
-      if king.valid_move?(move[0], move[1])
-        king.move_to!(move[0], move[1])
-        if ! self.in_check?
-          king.update_attributes(:position_x => king_x, :position_y => king_y)
-          return false
-        else 
-          return true
-        end
-      end
-    }
+     if king.valid_move?(move[0], move[1])
+       king.move_to!(move[0], move[1])
+       if ! self.in_check?(king)
+         king.update_attributes(:position_x => king_x, :position_y => king_y)
+         return false
+       end
+     end
+    } 
+    return true 
+  end
 
   def set_turn!
     turn_id = self.owner.id.to_i
